@@ -11,7 +11,7 @@ ANIMATION_SPEED = 6
 BATTLE_OUTLINE_WIDTH = 4
 
 AUDIO = {
-    'all': 0.1
+    'all': 0.0
 }
 
 COLORS = {
@@ -63,16 +63,18 @@ BATTLE_LAYERS = {
 
 BATTLE_CHOICES = {
     'full': {
-        'fight': {'pos': vector(WINDOW_WIDTH * 0.023, WINDOW_HEIGHT * -0.083), 'icon': 'sword'},
-        'defend': {'pos': vector(WINDOW_WIDTH * 0.031, WINDOW_HEIGHT * -0.027), 'icon': 'shield'},
-        'switch': {'pos': vector(WINDOW_WIDTH * 0.031, WINDOW_HEIGHT * 0.027), 'icon': 'arrows'},
-        'catch': {'pos': vector(WINDOW_WIDTH * 0.023, WINDOW_HEIGHT * 0.083), 'icon': 'hand'}
+        'fight': {'pos': vector(WINDOW_WIDTH * 0.023, WINDOW_HEIGHT * -0.088), 'icon': 'sword'},
+        'defend': {'pos': vector(WINDOW_WIDTH * 0.031, WINDOW_HEIGHT * -0.044), 'icon': 'shield'},
+        'switch': {'pos': vector(WINDOW_WIDTH * 0.032, WINDOW_HEIGHT * 0), 'icon': 'arrows'},
+        'catch': {'pos': vector(WINDOW_WIDTH * 0.031, WINDOW_HEIGHT * 0.044), 'icon': 'hand'},
+        'exit': {'pos': vector(WINDOW_WIDTH * 0.023, WINDOW_HEIGHT * 0.088), 'icon': 'cross_small'}
     },
 
     'limited': {
-        'fight': {'pos': vector(WINDOW_WIDTH * 0.023, WINDOW_HEIGHT * -0.055), 'icon': 'sword'},
-        'defend': {'pos': vector(WINDOW_WIDTH * 0.031, WINDOW_HEIGHT * 0.0), 'icon': 'shield'},
-        'switch': {'pos': vector(WINDOW_WIDTH * 0.023, WINDOW_HEIGHT * 0.055), 'icon': 'arrows'}
+        'fight': {'pos': vector(WINDOW_WIDTH * 0.023, WINDOW_HEIGHT * -0.066), 'icon': 'sword'},
+        'defend': {'pos': vector(WINDOW_WIDTH * 0.031, WINDOW_HEIGHT * -0.022), 'icon': 'shield'},
+        'switch': {'pos': vector(WINDOW_WIDTH * 0.031, WINDOW_HEIGHT * 0.022), 'icon': 'arrows'},
+        'exit': {'pos': vector(WINDOW_WIDTH * 0.023, WINDOW_HEIGHT * 0.066), 'icon': 'cross_small'}
     }
 }
 

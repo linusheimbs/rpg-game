@@ -12,7 +12,6 @@ class Monster:
         self.base_stats = MONSTER_DATA[name]['stats']
         self.health = self.base_stats['max_health'] * self.level
         self.energy = max(1, self.base_stats['max_energy'] * (self.level // 10))
-        self.initiative = 0
         self.abilities = MONSTER_DATA[name]['abilities']
         self.defending = False
 
@@ -47,9 +46,9 @@ class Monster:
             'health': self.get_stat('max_health'),
             'energy': self.get_stat('max_energy'),
             'attack': self.get_stat('attack'),
+            'power': self.get_stat('power'),
             'defense': self.get_stat('defense'),
             'speed': self.get_stat('speed'),
-            'recovery': self.get_stat('recovery')
         }
 
     def get_base_damage(self, attack):
@@ -64,11 +63,8 @@ class Monster:
     def get_info(self):
         return (
             (self.health, self.get_stat('max_health')),
-            (self.energy, self.get_stat('max_energy')),
-            (self.initiative, 100)
+            (self.energy, self.get_stat('max_energy'))
         )
 
-    def update(self, dt):
+    def update(self):
         self.stat_limiter()
-        if not self.paused:
-            self.initiative += self.get_stat('speed') * dt

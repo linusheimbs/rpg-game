@@ -17,7 +17,7 @@ Inspired by a tutorial video by [ClearCode](https://www.youtube.com/watch?v=fo4e
 ## Features
 - **Turn-Based Combat**: Engage in strategic battles with a variety of attacks and abilities.
 - **Exploration**: Traverse through different terrains and arenas.
-- **Inventory System**: Manage monsters (items and equipment coming soon).
+- **Inventory System**: Manage monsters (items planned).
 - **NPC Interactions**: Interact with various non-playable characters to battle them.
 - **Retro Art and Music**: Enjoy a nostalgic gaming experience with pixel art and chiptune music.
 
@@ -60,8 +60,9 @@ Inspired by a tutorial video by [ClearCode](https://www.youtube.com/watch?v=fo4e
   - **Overworld music**: [OpenGameArt](https://opengameart.org/content/nes-overworld-theme)
   - **Notice sound**: [OpenGameArt](https://opengameart.org/content/10-8bit-coin-sounds)
   - **Battle music**: [OpenGameArt](https://opengameart.org/content/boss-battle-1-8-bit-re-upload)
+
 ## Contact
-Coming soon.
+Coming.
 
 ## Planned Changes
-- (tbc)
+Coming.

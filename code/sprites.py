@@ -35,7 +35,7 @@ class CollidableSprite(Sprite):
         super().__init__(pos, surf, groups)
         self.hitbox = self.rect.inflate(-self.rect.width * 0.1, -self.rect.height * 0.5)
         self.hitbox_offset_y = self.rect.height
-        self.hitbox.centery = self.rect.centery + self.hitbox_offset_y/4
+        self.hitbox.centery = self.rect.centery + self.hitbox_offset_y / 4
 
 
 class MonsterPatchSprite(Sprite):
@@ -75,11 +75,13 @@ class MonsterSprite(pygame.sprite.Sprite):
         self.animation_speed = ANIMATION_SPEED + uniform(-1, 1)
         self.z = BATTLE_LAYERS['monster']
         self.hightlight = False
+        self.active = False
         self.target_sprite = None
         self.current_attack = None
         self.apply_attack = apply_attack
         self.next_monster_data = None
         self.create_monster = create_monster
+        self.alive = True
 
         # sprite setup
         super().__init__(groups)
@@ -87,14 +89,11 @@ class MonsterSprite(pygame.sprite.Sprite):
         self.rect = self.image.get_frect(center=pos)
 
         self.timers = {
-            'remove highlight': Timer(250, func=lambda: self.set_highlight(False)),
-            'kill': Timer(0, func=self.destroy),
+            'toggle_highlight': Timer(500, func=self.toggle_highlight),
         }
 
-    def set_highlight(self, bool_value):
-        self.hightlight = bool_value
-        if bool_value:
-            self.timers['remove highlight'].activate()
+    def toggle_highlight(self):
+        self.hightlight = not self.hightlight
 
     def animate(self, dt):
         self.frame_index += ANIMATION_SPEED * dt
@@ -118,21 +117,28 @@ class MonsterSprite(pygame.sprite.Sprite):
         self.current_attack = attack
         self.monster.reduce_energy(attack)
 
-    def delayed_kill(self, new_monster):
-        if not self.timers['kill'].active:
-            self.next_monster_data = new_monster
-            self.timers['kill'].activate()
+    def instant_kill(self, new_monster):
+        self.next_monster_data = new_monster
+        self.destroy()
 
     def destroy(self):
         if self.next_monster_data:
             self.create_monster(*self.next_monster_data)
         self.kill()
 
+    def __repr__(self):
+        return f"{self.monster.name} at lvl: {self.monster.level}"
+
     def update(self, dt):
         for timer in self.timers.values():
             timer.update()
         self.animate(dt)
-        self.monster.update(dt)
+        self.monster.update()
+        if self.active:
+            if not self.timers['toggle_highlight'].active:
+                self.timers['toggle_highlight'].activate()
+        else:
+            self.hightlight = False
 
 
 class MonsterOutlineSprite(pygame.sprite.Sprite):
@@ -179,7 +185,7 @@ class MonsterLevelSprite(pygame.sprite.Sprite):
         self.z = BATTLE_LAYERS['name']
 
         self.image = pygame.Surface((60, 26))
-        self.rect = self.image.get_frect(topleft=anchor) if entity == 'player'\
+        self.rect = self.image.get_frect(topleft=anchor) if entity == 'player' \
             else self.image.get_frect(topright=anchor)
         self.xp_rect = pygame.FRect(0, self.rect.height - 2, self.rect.width, 2)
 
@@ -187,7 +193,7 @@ class MonsterLevelSprite(pygame.sprite.Sprite):
         self.image.fill(COLORS['light'])
 
         text_surf = self.font.render(f'lvl: {self.monster_sprite.monster.level}', False, COLORS['black'])
-        text_rect = text_surf.get_frect(center=(self.rect.width/2, self.rect.height/2))
+        text_rect = text_surf.get_frect(center=(self.rect.width / 2, self.rect.height / 2))
         self.image.blit(text_surf, text_rect)
 
         draw_bar(
@@ -221,7 +227,7 @@ class MonsterStatsSprite(pygame.sprite.Sprite):
             color = (COLORS['red'], COLORS['blue'], COLORS['gray'])[index]
             if index < 2:
                 text_surf = self.font.render(f'{int(value)}/{max_value}', False, COLORS['black'])
-                text_rect = text_surf.get_frect(topleft=(self.rect.width * 0.05, index * self.rect.height/2))
+                text_rect = text_surf.get_frect(topleft=(self.rect.width * 0.05, index * self.rect.height / 2))
                 bar_rect = pygame.FRect(text_rect.bottomleft + vector(0, -self.rect.height * 0.05),
                                         (self.rect.width * 0.9, 4))
                 self.image.blit(text_surf, text_rect)

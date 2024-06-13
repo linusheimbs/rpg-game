@@ -28,9 +28,9 @@ class Game:
 
         # player monsters
         self.player_monsters = {
-            0: Monster('Sparchu', 14),
-            1: Monster('Finsta', 90),
-            2: Monster('Plumette', 90),
+            0: Monster('Plumette', 5),
+            1: Monster('Sparchu', 5),
+            2: Monster('Finsta', 5),
         }
 
         # groups
@@ -50,7 +50,7 @@ class Game:
 
         # setup
         self.import_assets()
-        self.setup(self.tmx_maps[START_POS], 'house')
+        self.setup(self.tmx_maps[START_POS], 'start')
         self.audio['overworld'].play(loops=-1, fade_ms=1000)
 
         # overlays
@@ -121,7 +121,7 @@ class Game:
         # grass patches
         for obj in tmx_map.get_layer_by_name('Monsters'):
             MonsterPatchSprite((obj.x, obj.y), obj.image, (self.all_sprites, self.encounter_sprites),
-                               obj.properties['biome'], obj.properties['level'], obj.properties['level'],
+                               obj.properties['biome'], obj.properties['min_level'], obj.properties['max_level'],
                                obj.properties['monsters'])
 
         # collision objects
@@ -151,7 +151,8 @@ class Game:
                         facing_direction=obj.properties['direction'],
                         collision_sprites=self.collision_sprites
                     )
-            else:
+        for obj in tmx_map.get_layer_by_name('Entities'):
+            if obj.name != 'Player':
                 Characters(
                     pos=(obj.x, obj.y),
                     frames=self.overworld_frames['characters'][obj.properties['graphic']],

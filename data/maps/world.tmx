@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="86" height="86" tilewidth="64" tileheight="64" infinite="0" nextlayerid="14" nextobjectid="1264">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="86" height="86" tilewidth="64" tileheight="64" infinite="0" nextlayerid="14" nextobjectid="1268">
  <tileset firstgid="1" source="../tilesets/world.tsx"/>
  <tileset firstgid="211" source="../tilesets/objects.tsx"/>
  <tileset firstgid="242" source="../tilesets/Grass.tsx"/>
- <layer id="1" name="Terrain" width="86" height="86">
+ <layer id="1" name="Terrain" width="86" height="86" locked="1">
   <data encoding="csv">
 195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,196,132,132,136,132,132,132,136,132,123,42,43,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,
 195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,195,196,132,132,147,126,132,132,136,132,132,123,54,33,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,
@@ -93,7 +93,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="13" name="Terrain Top" width="86" height="86">
+ <layer id="13" name="Terrain Top" width="86" height="86" visible="0" locked="1">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -184,7 +184,7 @@
 </data>
  </layer>
  <objectgroup id="3" name="Entities">
-  <object id="12" name="Player" x="4251.94" y="3885.26">
+  <object id="12" name="Player" x="4448.39" y="3812.07">
    <properties>
     <property name="direction" value="down"/>
     <property name="pos" value="house"/>
@@ -211,7 +211,7 @@
    </properties>
    <point/>
   </object>
-  <object id="20" name="Player" x="4282.67" y="3466">
+  <object id="20" name="Player" x="4287.67" y="3430.5">
    <properties>
     <property name="direction" value="down"/>
     <property name="pos" value="hospital"/>
@@ -238,7 +238,7 @@
    </properties>
    <point/>
   </object>
-  <object id="931" name="Player" x="734.667" y="984">
+  <object id="931" name="Player" x="736" y="927.667">
    <properties>
     <property name="direction" value="down"/>
     <property name="pos" value="water"/>
@@ -255,7 +255,7 @@
    </properties>
    <point/>
   </object>
-  <object id="963" name="Player" x="1372.67" y="4073.33">
+  <object id="963" name="Player" x="1375.67" y="3941.83">
    <properties>
     <property name="direction" value="down"/>
     <property name="pos" value="fire"/>
@@ -282,22 +282,29 @@
    </properties>
    <point/>
   </object>
-  <object id="1149" name="Player" x="4318.32" y="1482.47">
+  <object id="1149" name="Player" x="4320.32" y="1443.14">
    <properties>
     <property name="direction" value="down"/>
     <property name="pos" value="plant"/>
    </properties>
    <point/>
   </object>
-  <object id="1151" name="Player" x="1790.75" y="2304.25">
+  <object id="1151" name="Player" x="1791.75" y="2216.25">
    <properties>
     <property name="direction" value="down"/>
     <property name="pos" value="hospital2"/>
    </properties>
    <point/>
   </object>
+  <object id="1267" name="Player" x="4265.33" y="3648">
+   <properties>
+    <property name="direction" value="down"/>
+    <property name="pos" value="start"/>
+   </properties>
+   <point/>
+  </object>
  </objectgroup>
- <objectgroup id="9" name="Coast">
+ <objectgroup id="9" name="Coast" visible="0" locked="1">
   <object id="130" name="coast" x="4224" y="4992" width="64" height="64">
    <properties>
     <property name="side" value="top"/>
@@ -1719,2161 +1726,2469 @@
   <object id="34" gid="242" x="4096" y="4096" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="35" gid="242" x="4032" y="4096" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="36" gid="242" x="3968" y="4096" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="37" gid="242" x="3968" y="4160" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="38" gid="242" x="4032" y="4160" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="39" gid="242" x="4096" y="4160" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="215" gid="242" x="2624" y="3520" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="216" gid="242" x="2688" y="3520" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="217" gid="242" x="2624" y="3456" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="218" gid="242" x="2560" y="3456" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="219" gid="242" x="2560" y="3520" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="220" gid="242" x="2688" y="3584" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="221" gid="242" x="2624" y="3584" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="222" gid="242" x="2752" y="3584" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="223" gid="242" x="2752" y="3648" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="224" gid="242" x="2816" y="3648" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="225" gid="242" x="2816" y="3712" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="226" gid="242" x="2880" y="3776" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="227" gid="242" x="2880" y="3712" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="228" gid="242" x="2496" y="3456" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="229" gid="242" x="2496" y="3392" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="230" gid="242" x="2432" y="3392" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="231" gid="242" x="2432" y="3456" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="232" gid="242" x="2496" y="3520" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="233" gid="242" x="2368" y="3392" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="234" gid="242" x="2368" y="3328" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="10"/>
+    <property name="min_level" type="int" value="5"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="356" gid="242" x="2944" y="2944" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="357" gid="242" x="3008" y="2816" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="358" gid="242" x="3008" y="2752" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="359" gid="242" x="2944" y="2752" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="360" gid="242" x="2880" y="2880" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="361" gid="242" x="2880" y="2816" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="362" gid="242" x="2944" y="2816" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="363" gid="242" x="3008" y="2944" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="364" gid="242" x="3008" y="2880" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="365" gid="242" x="2944" y="2880" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="366" gid="242" x="2880" y="2944" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="367" gid="242" x="2816" y="2816" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="480" gid="242" x="3584" y="2816" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="481" gid="242" x="3648" y="2816" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="482" gid="242" x="3712" y="2816" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="483" gid="242" x="3584" y="2880" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="484" gid="242" x="3648" y="2880" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="485" gid="242" x="3712" y="2880" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="486" gid="242" x="3584" y="2944" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="487" gid="242" x="3648" y="2944" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="488" gid="242" x="3712" y="2944" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="489" gid="242" x="3776" y="2880" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="490" gid="242" x="3840" y="2880" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="491" gid="242" x="3904" y="2880" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="492" gid="242" x="3776" y="2944" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="493" gid="242" x="3840" y="2944" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="494" gid="242" x="3904" y="2944" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="495" gid="242" x="3776" y="3008" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="496" gid="242" x="3840" y="3008" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="497" gid="242" x="3904" y="3008" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="498" gid="242" x="3968" y="2944" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="499" gid="242" x="4032" y="2944" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="500" gid="242" x="4096" y="2944" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="501" gid="242" x="3968" y="3008" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="502" gid="242" x="4032" y="3008" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="503" gid="242" x="4096" y="3008" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="504" gid="242" x="3968" y="3072" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="505" gid="242" x="4032" y="3072" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="506" gid="242" x="4096" y="3072" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="507" gid="242" x="3968" y="2880" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="508" gid="242" x="4032" y="2880" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="20"/>
+    <property name="min_level" type="int" value="15"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="540" gid="242" x="3456" y="3392" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="541" gid="242" x="3520" y="3392" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="542" gid="242" x="3584" y="3392" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="543" gid="242" x="3456" y="3456" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="544" gid="242" x="3520" y="3456" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="545" gid="242" x="3584" y="3456" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="546" gid="242" x="3456" y="3520" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="547" gid="242" x="3520" y="3520" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="548" gid="242" x="3584" y="3520" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="549" gid="242" x="3456" y="3200" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="550" gid="242" x="3520" y="3200" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="551" gid="242" x="3584" y="3200" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="552" gid="242" x="3456" y="3264" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="553" gid="242" x="3520" y="3264" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="554" gid="242" x="3584" y="3264" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="555" gid="242" x="3456" y="3328" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="556" gid="242" x="3520" y="3328" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="557" gid="242" x="3584" y="3328" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="558" gid="242" x="3648" y="3392" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="561" gid="242" x="3648" y="3456" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="564" gid="242" x="3648" y="3520" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="567" gid="242" x="3648" y="3200" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="568" gid="242" x="3712" y="3200" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="569" gid="242" x="3776" y="3200" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="570" gid="242" x="3648" y="3264" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="571" gid="242" x="3712" y="3264" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="572" gid="242" x="3776" y="3264" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="573" gid="242" x="3648" y="3328" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="574" gid="242" x="3712" y="3328" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="575" gid="242" x="3776" y="3328" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="611" gid="242" x="4288" y="4096" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="612" gid="242" x="4224" y="4096" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="613" gid="242" x="4160" y="4096" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="614" gid="242" x="4160" y="4160" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="615" gid="242" x="4224" y="4160" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="616" gid="242" x="4288" y="4160" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="617" gid="242" x="4480" y="4096" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="618" gid="242" x="4416" y="4096" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="619" gid="242" x="4352" y="4096" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="620" gid="242" x="4352" y="4160" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="621" gid="242" x="4416" y="4160" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="622" gid="242" x="4480" y="4160" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="623" gid="242" x="4288" y="4032" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="624" gid="242" x="4480" y="4032" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="625" gid="242" x="4416" y="4032" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="626" gid="242" x="4352" y="4032" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="694" gid="243" x="2304" y="896" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="695" gid="243" x="2368" y="832" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="696" gid="243" x="2432" y="832" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="697" gid="243" x="2432" y="896" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="698" gid="243" x="2368" y="896" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="699" gid="243" x="2304" y="832" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="751" gid="242" x="3456" y="1344" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="752" gid="242" x="3520" y="1344" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="753" gid="242" x="3584" y="1344" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="754" gid="242" x="3456" y="1408" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="755" gid="242" x="3520" y="1408" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="756" gid="242" x="3584" y="1408" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="757" gid="242" x="3456" y="1472" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="758" gid="242" x="3520" y="1472" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="759" gid="242" x="3584" y="1472" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="760" gid="242" x="3392" y="1408" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="761" gid="242" x="3392" y="1472" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="762" gid="242" x="3392" y="1536" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="763" gid="242" x="3328" y="1472" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="764" gid="242" x="3328" y="1536" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="765" gid="242" x="3328" y="1600" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="766" gid="242" x="3456" y="1536" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="767" gid="242" x="3520" y="1536" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="768" gid="242" x="3456" y="1600" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="769" gid="242" x="3520" y="1600" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="770" gid="242" x="3456" y="1664" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="771" gid="242" x="3520" y="1664" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="772" gid="242" x="3392" y="1600" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="773" gid="242" x="3328" y="1664" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="774" gid="242" x="3392" y="1664" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="775" gid="242" x="3328" y="1792" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="776" gid="242" x="3456" y="1792" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="777" gid="242" x="3520" y="1792" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="778" gid="242" x="3456" y="1856" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="779" gid="242" x="3520" y="1856" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="780" gid="242" x="3392" y="1792" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="781" gid="242" x="3328" y="1856" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="782" gid="242" x="3392" y="1856" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="783" gid="242" x="3392" y="1920" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="784" gid="242" x="3456" y="1920" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="785" gid="242" x="3264" y="1920" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="786" gid="242" x="3328" y="1920" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="932" gid="243" x="640" y="2176" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="933" gid="243" x="704" y="2176" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="934" gid="243" x="768" y="2176" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="935" gid="243" x="640" y="2240" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="936" gid="243" x="704" y="2240" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="937" gid="243" x="768" y="2240" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="938" gid="243" x="640" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="939" gid="243" x="704" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="940" gid="243" x="768" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="942" gid="243" x="832" y="2240" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="943" gid="243" x="896" y="2240" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="944" gid="243" x="960" y="2240" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="945" gid="243" x="832" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="946" gid="243" x="896" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="947" gid="243" x="960" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="948" gid="243" x="960" y="2112" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="949" gid="243" x="1024" y="2112" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="950" gid="243" x="1088" y="2112" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="951" gid="243" x="960" y="2176" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="952" gid="243" x="1024" y="2176" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="953" gid="243" x="1088" y="2176" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="965" gid="242" x="3968" y="2240" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="966" gid="242" x="4032" y="2240" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="967" gid="242" x="3648" y="2112" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="968" gid="242" x="4096" y="2240" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="969" gid="242" x="4160" y="2240" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="970" gid="242" x="4224" y="2240" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="971" gid="242" x="4096" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="972" gid="242" x="4160" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="973" gid="242" x="4224" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="974" gid="242" x="4096" y="2368" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="975" gid="242" x="4160" y="2368" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="976" gid="242" x="4224" y="2368" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="977" gid="242" x="4096" y="2432" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="978" gid="242" x="4160" y="2432" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="979" gid="242" x="4224" y="2432" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="983" gid="242" x="4288" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="984" gid="242" x="4352" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="985" gid="242" x="4416" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="986" gid="242" x="4288" y="2368" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="987" gid="242" x="4352" y="2368" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="988" gid="242" x="4416" y="2368" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="989" gid="242" x="4288" y="2432" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="990" gid="242" x="4352" y="2432" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="991" gid="242" x="4416" y="2432" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="992" gid="242" x="4480" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="993" gid="242" x="3968" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="994" gid="242" x="4032" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="995" gid="242" x="4480" y="2368" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="996" gid="242" x="3968" y="2368" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="997" gid="242" x="4032" y="2368" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="998" gid="242" x="4480" y="2432" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="999" gid="242" x="3968" y="2432" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1000" gid="242" x="4032" y="2432" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1001" gid="242" x="4288" y="2240" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1002" gid="243" x="2688" y="960" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1003" gid="243" x="2752" y="960" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1004" gid="243" x="2624" y="960" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1005" gid="243" x="2688" y="1024" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1006" gid="243" x="2752" y="1024" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1007" gid="243" x="2624" y="1024" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1040" gid="242" x="3904" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1041" gid="242" x="3776" y="2112" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1042" gid="242" x="3840" y="2112" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1043" gid="242" x="3776" y="2176" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1044" gid="242" x="3840" y="2176" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1045" gid="242" x="3712" y="2112" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1046" gid="242" x="3712" y="2176" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1047" gid="242" x="3648" y="2176" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1048" gid="242" x="2944" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1049" gid="242" x="3072" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1050" gid="242" x="3136" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1051" gid="242" x="3072" y="2368" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1052" gid="242" x="3136" y="2368" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1053" gid="242" x="3008" y="2304" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1054" gid="242" x="3008" y="2368" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1055" gid="242" x="2944" y="2368" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1056" gid="242" x="3072" y="2432" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1057" gid="242" x="3136" y="2432" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1058" gid="242" x="3008" y="2432" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1059" gid="242" x="2944" y="2432" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="25"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1060" gid="242" x="3008" y="3328" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1061" gid="242" x="3072" y="3392" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1062" gid="242" x="3072" y="3264" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1063" gid="242" x="3136" y="3328" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1064" gid="242" x="3072" y="3328" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1065" gid="242" x="3136" y="3392" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1066" gid="242" x="3136" y="3456" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1067" gid="242" x="3200" y="3520" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1068" gid="242" x="3200" y="3392" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1069" gid="242" x="3264" y="3456" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1070" gid="242" x="3200" y="3456" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1071" gid="242" x="3264" y="3520" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="15"/>
+    <property name="min_level" type="int" value="10"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1080" gid="242" x="3648" y="1600" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="25"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1081" gid="242" x="3776" y="1600" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="25"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1082" gid="242" x="3840" y="1600" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="25"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1083" gid="242" x="3776" y="1664" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="25"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1084" gid="242" x="3840" y="1664" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="25"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1085" gid="242" x="3712" y="1600" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="25"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1086" gid="242" x="3712" y="1664" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="25"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1087" gid="242" x="3648" y="1664" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="25"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1088" gid="242" x="3712" y="1536" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="25"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1089" gid="242" x="3776" y="1536" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="25"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1090" gid="242" x="3712" y="1472" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="25"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1091" gid="242" x="3776" y="1472" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="25"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1092" gid="242" x="4480" y="1856" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1093" gid="242" x="4544" y="1856" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1094" gid="242" x="4480" y="1920" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1095" gid="242" x="4544" y="1920" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1096" gid="242" x="4480" y="1984" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1097" gid="242" x="4544" y="1984" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1098" gid="242" x="4480" y="1792" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1099" gid="242" x="4544" y="1792" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1100" gid="242" x="4608" y="1856" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1101" gid="242" x="4608" y="1792" width="64" height="64">
    <properties>
     <property name="biome" value="forest"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1102" gid="243" x="2688" y="1088" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1103" gid="243" x="2752" y="1088" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1104" gid="243" x="2624" y="1088" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1105" gid="243" x="2688" y="1152" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1106" gid="243" x="2752" y="1152" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1107" gid="243" x="2624" y="1152" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1108" gid="243" x="2496" y="1024" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1109" gid="243" x="2560" y="1024" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1110" gid="243" x="2432" y="1024" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1111" gid="243" x="2496" y="1088" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1112" gid="243" x="2560" y="1088" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1113" gid="243" x="2432" y="1088" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1114" gid="243" x="2496" y="1152" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1115" gid="243" x="2560" y="1152" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1116" gid="243" x="2432" y="1152" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1117" gid="243" x="2496" y="1216" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1118" gid="243" x="2560" y="1216" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1119" gid="243" x="2432" y="1216" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1120" gid="243" x="2624" y="1216" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1121" gid="243" x="2688" y="1216" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1122" gid="243" x="2368" y="1024" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1123" gid="243" x="2368" y="1088" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1124" gid="243" x="2368" y="1152" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1125" gid="243" x="2368" y="1216" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1126" gid="243" x="2304" y="1024" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1127" gid="243" x="2304" y="1088" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1128" gid="243" x="2304" y="1152" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1129" gid="243" x="2304" y="1216" width="64" height="64">
    <properties>
     <property name="biome" value="ice"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="30"/>
+    <property name="min_level" type="int" value="20"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1135" gid="244" x="3712" y="4352" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1136" gid="244" x="3776" y="4352" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1137" gid="244" x="3840" y="4352" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1138" gid="244" x="3904" y="4352" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1139" gid="244" x="3968" y="4352" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1140" gid="244" x="3968" y="4416" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1141" gid="244" x="3904" y="4416" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1142" gid="244" x="3840" y="4416" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1143" gid="244" x="3776" y="4416" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
   <object id="1144" gid="244" x="3712" y="4416" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
-    <property name="level" type="int" value="10"/>
+    <property name="max_level" type="int" value="5"/>
+    <property name="min_level" type="int" value="2"/>
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="2" name="Objects">
+ <objectgroup id="2" name="Objects" locked="1">
   <object id="1" gid="211" x="4352" y="3776" width="320" height="320"/>
   <object id="2" gid="226" x="3455.33" y="3783.33" width="128" height="192"/>
   <object id="3" gid="226" x="3264" y="3712" width="128" height="192"/>
@@ -4159,7 +4474,7 @@
   <object id="1243" gid="212" x="2857.21" y="804" width="128" height="192"/>
   <object id="1244" gid="226" x="2864" y="700" width="128" height="192"/>
  </objectgroup>
- <objectgroup id="12" name="Collisions">
+ <objectgroup id="12" name="Collisions" visible="0" locked="1">
   <object id="211" x="4832.33" y="1976.5" width="33.3333" height="647.5"/>
   <object id="700" x="4857" y="1952" width="67.5" height="22.5"/>
   <object id="701" x="4899" y="1203" width="25" height="744"/>
@@ -4450,7 +4765,7 @@
     <property name="target" value="fire"/>
    </properties>
   </object>
-  <object id="1148" x="4292.85" y="1400.08" width="54.6667" height="3.83333">
+  <object id="1148" x="4304" y="1409" width="32" height="4">
    <properties>
     <property name="pos" value="entrance"/>
     <property name="target" value="plant"/>
@@ -4463,7 +4778,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="10" name="Water">
+ <objectgroup id="10" name="Water" visible="0" locked="1">
   <object id="136" x="0" y="5056" width="5504" height="320"/>
   <object id="161" x="3648" y="2496" width="192" height="192"/>
   <object id="162" x="3840" y="2560" width="512" height="128"/>

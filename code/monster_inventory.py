@@ -173,12 +173,14 @@ class MonsterInventory:
         self.display_surface.blit(monster_surf, monster_rect)
 
         # name
-        name_surf = self.fonts['bold'].render(monster.name, False, COLORS['white'])
+        name_surf = self.fonts['bold'].render(monster.name, False,
+                                              COLORS['white' if monster.element != 'normal' else 'black'])
         name_rect = name_surf.get_frect(topleft=top_rect.topleft + vector(10, 10))
         self.display_surface.blit(name_surf, name_rect)
 
         # level
-        level_surf = self.fonts['regular'].render(f'Level: {monster.level}', False, COLORS['white'])
+        level_surf = self.fonts['regular'].render(f'Level: {monster.level}', False,
+                                                  COLORS['white' if monster.element != 'normal' else 'black'])
         level_rect = level_surf.get_frect(bottomleft=top_rect.bottomleft + vector(10, -14))
         self.display_surface.blit(level_surf, level_rect)
         # exp
@@ -187,12 +189,13 @@ class MonsterInventory:
             rect=pygame.FRect(level_rect.bottomleft, (100, 4)),
             value=monster.exp,
             max_value=monster.level_up,
-            color=COLORS['white'],
+            color=COLORS['white' if monster.element != 'normal' else 'light-gray'],
             bg_color=COLORS['dark']
         )
 
         # element
-        element_surf = self.fonts['regular'].render(f'{monster.element}', False, COLORS['white'])
+        element_surf = self.fonts['regular'].render(f'{monster.element}', False,
+                                                    COLORS['white'] if monster.element != 'normal' else 'black')
         element_rect = element_surf.get_frect(bottomright=top_rect.bottomright + vector(-10, -10))
         self.display_surface.blit(element_surf, element_rect)
 

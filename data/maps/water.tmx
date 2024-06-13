@@ -112,7 +112,7 @@
   </object>
  </objectgroup>
  <objectgroup id="9" name="Coast" locked="1"/>
- <objectgroup id="6" name="Monsters" locked="1"/>
+ <objectgroup id="6" name="Monsters" visible="0" locked="1"/>
  <layer id="13" name="Terrain Top" width="24" height="34" locked="1">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
