@@ -17,12 +17,13 @@ class MonsterInventory:
         self.ui_frames = monster_frames['ui']
 
         # tint surf
-        self.tint_surf = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
+        self.tint_surf = pygame.Surface((settings['window']['window_width'], settings['window']['window_height']))
         self.tint_surf.set_alpha(200)
 
         # dimensions
-        self.main_rect = pygame.FRect(0, 0, WINDOW_WIDTH * 0.7, WINDOW_HEIGHT * 0.85)\
-            .move_to(center=(WINDOW_WIDTH/2, WINDOW_HEIGHT/2))
+        self.main_rect = pygame.FRect(0, 0, settings['window']['window_width'] * 0.7,
+                                      settings['window']['window_height'] * 0.85)\
+            .move_to(center=(settings['window']['window_width']/2, settings['window']['window_height']/2))
 
         # list
         self.visible_items = 6

@@ -61,8 +61,51 @@ Inspired by a tutorial video by [ClearCode](https://www.youtube.com/watch?v=fo4e
   - **Notice sound**: [OpenGameArt](https://opengameart.org/content/10-8bit-coin-sounds)
   - **Battle music**: [OpenGameArt](https://opengameart.org/content/boss-battle-1-8-bit-re-upload)
 
-## Contact
-Coming.
-
 ## Planned Changes
+
+### Map:
+- [x] Rework the map collisions
+- [ ] Create new maps
+
+### Monsters:
+- [ ] Rename monsters
+- [ ] Change monster abilities for better coherence
+- [ ] Add new abilities and elements
+- [x] Remove recovery mechanism
+- [x] Add power to monsters' abilities
+- [ ] Apply power scaling to abilities
+
+### Character:
+- [ ] Implement pathfinding for the player
+- [ ] Assign unique IDs to all NPCs, not just the nurse
+
+### Battle:
+- [x] Add a skip turn button
+- [ ] Review and redesign the element system to support multiple elements
+- [ ] Rework defense system for better balance
+    - [ ] Review and adjust all stat systems, including exp
+- [ ] Overhaul catch system
+- [x] Completely redesign battle system without a timer, using speed checks
+- [x] Implement action queue and execution system
+- [ ] Allow monsters to take actions based on available energy
+- [x] Improve visual cues for turn indication (might need future changes)
+
+### Sound:
+- [ ] Update existing sounds and add new ones
+
+### Other:
+- [ ] Optimize sprite rendering based on player proximity to reduce lag
+- [x] Create main menu with full functionality and UI
+- [x] Design options menu with UI elements
+- [ ] Implement save and load functionality and UI
+- [ ] Introduce new items to the game
+
+### Bugfixes:
+- [x] Fix issue where player actions can cause crashes during action execution
+- [x] Resolve bug causing outlines to appear incorrectly during actions
+- [x] Address player ability to attack out of sequence by spamming space
+- [ ] Investigate intermittent battle stoppages
+- [ ] Fix initial player position when movement keys are pressed before loading completes
+
+## Contact
 Coming.

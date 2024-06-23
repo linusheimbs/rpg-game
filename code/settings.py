@@ -2,17 +2,30 @@ import pygame
 from pygame.math import Vector2 as vector
 from sys import exit
 
-WINDOW_WIDTH, WINDOW_HEIGHT = 1600, 900
+settings = {
+    'window': {
+        'window_width': 1600, 'window_height': 900
+    },
+    'audio': {
+        'all': 0.0
+    },
+    'show_hitbox': False
+}
+
+
+def set_window_size(width, height):
+    settings['window']['window_width'] = width
+    settings['window']['window_height'] = height
+    pygame.display.set_mode((width, height), pygame.RESIZABLE)
+    if width == 1920:
+        pygame.display.toggle_fullscreen()
+
+
 TILE_SIZE = 64
 
 START_POS = 'world'
-
 ANIMATION_SPEED = 6
 BATTLE_OUTLINE_WIDTH = 4
-
-AUDIO = {
-    'all': 0.0
-}
 
 COLORS = {
     'white': '#f4fefa',
@@ -40,19 +53,6 @@ WORLD_LAYERS = {
     'top': 4
 }
 
-BATTLE_POSITIONS = {
-    'left': {
-        'top': (0.25 * WINDOW_WIDTH, 0.27 * WINDOW_HEIGHT),
-        'center': (0.17 * WINDOW_WIDTH, 0.54 * WINDOW_HEIGHT),
-        'bottom': (0.30 * WINDOW_WIDTH, 0.80 * WINDOW_HEIGHT)
-    },
-    'right': {
-        'top': (0.75 * WINDOW_WIDTH, 0.27 * WINDOW_HEIGHT),
-        'center': (0.85 * WINDOW_WIDTH, 0.55 * WINDOW_HEIGHT),
-        'bottom': (0.78 * WINDOW_WIDTH, 0.82 * WINDOW_HEIGHT)
-    }
-}
-
 BATTLE_LAYERS = {
     'outline': 0,
     'name': 1,
@@ -61,36 +61,21 @@ BATTLE_LAYERS = {
     'overlay': 4
 }
 
-BATTLE_CHOICES = {
-    'full': {
-        'fight': {'pos': vector(WINDOW_WIDTH * 0.023, WINDOW_HEIGHT * -0.088), 'icon': 'sword'},
-        'defend': {'pos': vector(WINDOW_WIDTH * 0.031, WINDOW_HEIGHT * -0.044), 'icon': 'shield'},
-        'switch': {'pos': vector(WINDOW_WIDTH * 0.032, WINDOW_HEIGHT * 0), 'icon': 'arrows'},
-        'catch': {'pos': vector(WINDOW_WIDTH * 0.031, WINDOW_HEIGHT * 0.044), 'icon': 'hand'},
-        'exit': {'pos': vector(WINDOW_WIDTH * 0.023, WINDOW_HEIGHT * 0.088), 'icon': 'cross_small'}
-    },
-
-    'limited': {
-        'fight': {'pos': vector(WINDOW_WIDTH * 0.023, WINDOW_HEIGHT * -0.066), 'icon': 'sword'},
-        'defend': {'pos': vector(WINDOW_WIDTH * 0.031, WINDOW_HEIGHT * -0.022), 'icon': 'shield'},
-        'switch': {'pos': vector(WINDOW_WIDTH * 0.031, WINDOW_HEIGHT * 0.022), 'icon': 'arrows'},
-        'exit': {'pos': vector(WINDOW_WIDTH * 0.023, WINDOW_HEIGHT * 0.066), 'icon': 'cross_small'}
-    }
-}
-
 ELEMENT_RELATIONSHIPS = {
+    'normal': {
+        'vulnerable_to': [],
+        'resistant_to': []
+    },
     'fire': {
         'vulnerable_to': ['water'],
-        'resistant_to': ['plant']
+        'resistant_to': ['fire', 'plant']
     },
     'water': {
         'vulnerable_to': ['plant'],
-        'resistant_to': ['fire']
+        'resistant_to': ['water', 'fire']
     },
     'plant': {
         'vulnerable_to': ['fire'],
-        'resistant_to': ['water']
+        'resistant_to': ['plant', 'water']
     }
 }
-
-SHOW_HITBOX = False

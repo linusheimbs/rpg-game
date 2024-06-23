@@ -304,7 +304,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="9" name="Coast" visible="0" locked="1">
+ <objectgroup id="9" name="Coast">
   <object id="130" name="coast" x="4224" y="4992" width="64" height="64">
    <properties>
     <property name="side" value="top"/>
@@ -4107,7 +4107,7 @@
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
-  <object id="1135" gid="244" x="3712" y="4352" width="64" height="64">
+  <object id="1135" gid="244" x="3584" y="4288" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
     <property name="max_level" type="int" value="5"/>
@@ -4115,7 +4115,7 @@
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
-  <object id="1136" gid="244" x="3776" y="4352" width="64" height="64">
+  <object id="1136" gid="244" x="3648" y="4288" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
     <property name="max_level" type="int" value="5"/>
@@ -4123,7 +4123,7 @@
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
-  <object id="1137" gid="244" x="3840" y="4352" width="64" height="64">
+  <object id="1137" gid="244" x="3712" y="4288" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
     <property name="max_level" type="int" value="5"/>
@@ -4131,7 +4131,7 @@
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
-  <object id="1138" gid="244" x="3904" y="4352" width="64" height="64">
+  <object id="1138" gid="244" x="3456" y="4288" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
     <property name="max_level" type="int" value="5"/>
@@ -4139,7 +4139,7 @@
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
-  <object id="1139" gid="244" x="3968" y="4352" width="64" height="64">
+  <object id="1139" gid="244" x="3520" y="4288" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
     <property name="max_level" type="int" value="5"/>
@@ -4147,7 +4147,7 @@
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
-  <object id="1140" gid="244" x="3968" y="4416" width="64" height="64">
+  <object id="1140" gid="244" x="3520" y="4352" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
     <property name="max_level" type="int" value="5"/>
@@ -4155,7 +4155,7 @@
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
-  <object id="1141" gid="244" x="3904" y="4416" width="64" height="64">
+  <object id="1141" gid="244" x="3456" y="4352" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
     <property name="max_level" type="int" value="5"/>
@@ -4163,7 +4163,7 @@
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
-  <object id="1142" gid="244" x="3840" y="4416" width="64" height="64">
+  <object id="1142" gid="244" x="3712" y="4352" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
     <property name="max_level" type="int" value="5"/>
@@ -4171,7 +4171,7 @@
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
-  <object id="1143" gid="244" x="3776" y="4416" width="64" height="64">
+  <object id="1143" gid="244" x="3648" y="4352" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
     <property name="max_level" type="int" value="5"/>
@@ -4179,7 +4179,7 @@
     <property name="monsters" value="Atrox,Pouch"/>
    </properties>
   </object>
-  <object id="1144" gid="244" x="3712" y="4416" width="64" height="64">
+  <object id="1144" gid="244" x="3584" y="4352" width="64" height="64">
    <properties>
     <property name="biome" value="sand"/>
     <property name="max_level" type="int" value="5"/>
@@ -4474,7 +4474,7 @@
   <object id="1243" gid="212" x="2857.21" y="804" width="128" height="192"/>
   <object id="1244" gid="226" x="2864" y="700" width="128" height="192"/>
  </objectgroup>
- <objectgroup id="12" name="Collisions" visible="0" locked="1">
+ <objectgroup id="12" name="Collisions" locked="1">
   <object id="211" x="4832.33" y="1976.5" width="33.3333" height="647.5"/>
   <object id="700" x="4857" y="1952" width="67.5" height="22.5"/>
   <object id="701" x="4899" y="1203" width="25" height="744"/>
@@ -4778,7 +4778,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="10" name="Water" visible="0" locked="1">
+ <objectgroup id="10" name="Water" locked="1">
   <object id="136" x="0" y="5056" width="5504" height="320"/>
   <object id="161" x="3648" y="2496" width="192" height="192"/>
   <object id="162" x="3840" y="2560" width="512" height="128"/>

@@ -43,7 +43,7 @@
    </properties>
    <point/>
   </object>
-  <object id="12" name="Character" x="288" y="375">
+  <object id="12" name="Character" x="288" y="367">
    <properties>
     <property name="character_id" value="Nurse"/>
     <property name="direction" value="down"/>
@@ -57,16 +57,16 @@
  <objectgroup id="7" name="Water" visible="0"/>
  <objectgroup id="8" name="Monsters" visible="0"/>
  <objectgroup id="9" name="Collisions">
-  <object id="13" x="45" y="140" width="400" height="270"/>
-  <object id="14" x="0" y="719" width="155" height="50"/>
-  <object id="15" x="230" y="719" width="345" height="50"/>
-  <object id="16" x="530" y="50" width="45" height="669"/>
-  <object id="17" x="0" y="50" width="45" height="669"/>
-  <object id="18" x="445" y="140" width="85" height="45"/>
+  <object id="13" x="45" y="140" width="400" height="300"/>
+  <object id="14" x="0" y="708" width="160" height="50"/>
+  <object id="15" x="224" y="708" width="351" height="50"/>
+  <object id="16" x="516" y="50" width="59" height="658"/>
+  <object id="17" x="0" y="50" width="59" height="658"/>
+  <object id="18" x="445" y="140" width="85" height="50"/>
  </objectgroup>
  <objectgroup id="3" name="Objects" visible="0"/>
  <objectgroup id="5" name="Transition">
-  <object id="8" x="160" y="723" width="63" height="5">
+  <object id="8" x="160" y="740" width="63" height="5">
    <properties>
     <property name="pos" value="hospital"/>
     <property name="target" value="world"/>
