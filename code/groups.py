@@ -1,4 +1,5 @@
 from settings import *
+from config_manager import config_manager
 from support import import_image
 from entities import Entity
 
@@ -13,8 +14,8 @@ class AllSprites(pygame.sprite.Group):
         self.collision_sprites = collision_sprites
 
     def draw(self, player):
-        self.offset.x = -(player.rect.centerx - settings['window']['window_width'] / 2)
-        self.offset.y = -(player.rect.centery - settings['window']['window_height'] / 2)
+        self.offset.x = -(player.rect.centerx - config_manager.settings['video']['window_width'] / 2)
+        self.offset.y = -(player.rect.centery - config_manager.settings['video']['window_height'] / 2)
 
         bg_sprites = [sprite for sprite in self if sprite.z < WORLD_LAYERS['main']]
         main_sprites = sorted([sprite for sprite in self if sprite.z == WORLD_LAYERS['main']],
@@ -31,7 +32,7 @@ class AllSprites(pygame.sprite.Group):
                     self.display_surface.blit(self.notice_surf, rect.topleft + self.offset)
 
         # Draw hitboxes for all sprites in collision_sprites and for player
-        if settings['show_hitbox']:
+        if config_manager.settings['show_hitbox']:
             for sprite in self.collision_sprites:
                 if hasattr(sprite, 'hitbox'):
                     hitbox_copy = sprite.hitbox.copy()

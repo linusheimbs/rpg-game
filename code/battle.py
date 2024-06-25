@@ -1,5 +1,6 @@
 from settings import *
-from sprites import MonsterSprite, MonsterNameSprite, MonsterLevelSprite, MonsterStatsSprite, MonsterOutlineSprite,\
+from config_manager import config_manager
+from sprites import MonsterSprite, MonsterNameSprite, MonsterLevelSprite, MonsterStatsSprite, MonsterOutlineSprite, \
     AttackSprite, TimedSprite
 from groups import BattleSprites
 from game_data import ATTACK_DATA
@@ -19,8 +20,9 @@ class Battle:
             'opponent': opponent_monsters
         }
         self.monster_frames = monster_frames
-        self.bg_surf = pygame.transform.scale(bg_surf, (settings['window']['window_width'],
-                                                        settings['window']['window_height']))
+        self.window_width = config_manager.settings['video']['window_width']
+        self.window_height = config_manager.settings['video']['window_height']
+        self.bg_surf = pygame.transform.scale(bg_surf, (self.window_width, self.window_height))
         self.fonts = fonts
         self.battle_over = False
         self.end_battle = end_battle
@@ -29,40 +31,34 @@ class Battle:
 
         self.battle_positions = {
             'left': {
-                'top': (0.25 * settings['window']['window_width'], 0.27 * settings['window']['window_height']),
-                'center': (0.17 * settings['window']['window_width'], 0.54 * settings['window']['window_height']),
-                'bottom': (0.30 * settings['window']['window_width'], 0.80 * settings['window']['window_height'])
+                'top': (0.25 * self.window_width, 0.27 * self.window_height),
+                'center': (0.17 * self.window_width, 0.54 * self.window_height),
+                'bottom': (0.30 * self.window_width, 0.80 * self.window_height)
             },
             'right': {
-                'top': (0.75 * settings['window']['window_width'], 0.27 * settings['window']['window_height']),
-                'center': (0.85 * settings['window']['window_width'], 0.55 * settings['window']['window_height']),
-                'bottom': (0.78 * settings['window']['window_width'], 0.82 * settings['window']['window_height'])
+                'top': (0.75 * self.window_width, 0.27 * self.window_height),
+                'center': (0.85 * self.window_width, 0.55 * self.window_height),
+                'bottom': (0.78 * self.window_width, 0.82 * self.window_height)
             }
         }
 
         self.battle_choices = {
             'full': {
-                'fight': {'pos': vector(settings['window']['window_width'] * 0.023,
-                                        settings['window']['window_height'] * -0.088), 'icon': 'sword'},
-                'defend': {'pos': vector(settings['window']['window_width'] * 0.031,
-                                         settings['window']['window_height'] * -0.044), 'icon': 'shield'},
-                'switch': {'pos': vector(settings['window']['window_width'] * 0.032,
-                                         settings['window']['window_height'] * 0), 'icon': 'arrows'},
-                'catch': {'pos': vector(settings['window']['window_width'] * 0.031,
-                                        settings['window']['window_height'] * 0.044), 'icon': 'hand'},
-                'exit': {'pos': vector(settings['window']['window_width'] * 0.023,
-                                       settings['window']['window_height'] * 0.088), 'icon': 'cross_small'}
+                'fight': {'pos': vector(self.window_width * 0.023, self.window_height * -0.088), 'icon': 'sword'},
+                'defend': {'pos': vector(self.window_width * 0.031, self.window_height * -0.044),
+                           'icon': 'shield'},
+                'switch': {'pos': vector(self.window_width * 0.032, self.window_height * 0), 'icon': 'arrows'},
+                'catch': {'pos': vector(self.window_width * 0.031, self.window_height * 0.044), 'icon': 'hand'},
+                'exit': {'pos': vector(self.window_width * 0.023, self.window_height * 0.088),
+                         'icon': 'cross_small'}
             },
 
             'limited': {
-                'fight': {'pos': vector(settings['window']['window_width'] * 0.023,
-                                        settings['window']['window_height'] * -0.066), 'icon': 'sword'},
-                'defend': {'pos': vector(settings['window']['window_width'] * 0.031,
-                                         settings['window']['window_height'] * -0.022), 'icon': 'shield'},
-                'switch': {'pos': vector(settings['window']['window_width'] * 0.031,
-                                         settings['window']['window_height'] * 0.022), 'icon': 'arrows'},
-                'exit': {'pos': vector(settings['window']['window_width'] * 0.023,
-                                       settings['window']['window_height'] * 0.066), 'icon': 'cross_small'}
+                'fight': {'pos': vector(self.window_width * 0.023, self.window_height * -0.066), 'icon': 'sword'},
+                'defend': {'pos': vector(self.window_width * 0.031, self.window_height * -0.022), 'icon': 'shield'},
+                'switch': {'pos': vector(self.window_width * 0.031, self.window_height * 0.022), 'icon': 'arrows'},
+                'exit': {'pos': vector(self.window_width * 0.023, self.window_height * 0.066),
+                         'icon': 'cross_small'}
             }
         }
 
@@ -307,13 +303,13 @@ class Battle:
     def draw_attacks(self):
         # data
         abilities = self.current_monster.monster.get_abilities(all_abilities=False)
-        width, height = settings['window']['window_width'] * 0.1, settings['window']['window_height'] * 0.2
+        width, height = self.window_width * 0.1, self.window_height * 0.2
         visible_attacks = 6
         item_height = height / visible_attacks
 
         # bg
         bg_rect = pygame.FRect((0, 0), (width, height)).move_to(
-            midleft=self.current_monster.rect.midright + vector(settings['window']['window_width'] * 0.023, 0))
+            midleft=self.current_monster.rect.midright + vector(self.window_width * 0.023, 0))
         pygame.draw.rect(self.display_surface, COLORS['light'], bg_rect, 0, 5)
 
         # fg
@@ -343,12 +339,12 @@ class Battle:
 
     def draw_defend(self):
         # data
-        width, height = settings['window']['window_width'] * 0.1, settings['window']['window_height'] * 0.1
+        width, height = self.window_width * 0.1, self.window_height * 0.1
         item_height = height / 2
 
         # bg
-        bg_rect = pygame.FRect((0, 0), (width, height)) \
-            .move_to(midleft=self.current_monster.rect.midright + vector(settings['window']['window_width'] * 0.023, 0))
+        bg_rect = pygame.FRect((0, 0), (width, height)).move_to(midleft=self.current_monster.rect.midright + vector(
+            self.window_width * 0.023, 0))
         pygame.draw.rect(self.display_surface, COLORS['light'], bg_rect, 0, 5)
 
         # fg
@@ -375,7 +371,7 @@ class Battle:
 
     def draw_switch(self):
         # data
-        width, height = settings['window']['window_width'] * 0.25, settings['window']['window_height'] * 0.35
+        width, height = self.window_width * 0.25, self.window_height * 0.35
         visible_monsters = 4
         item_height = height / visible_monsters
         v_offset = 0 if self.ui_indexes['switch'] < visible_monsters else \
@@ -383,7 +379,7 @@ class Battle:
 
         # bg
         bg_rect = pygame.FRect((0, 0), (width, height)).move_to(
-            midleft=self.current_monster.rect.midright + vector(settings['window']['window_width'] * 0.023, 0))
+            midleft=self.current_monster.rect.midright + vector(self.window_width * 0.023, 0))
         pygame.draw.rect(self.display_surface, COLORS['light'], bg_rect, 0, 5)
 
         # monsters
@@ -398,14 +394,14 @@ class Battle:
             # icon
             icon_surf = self.monster_frames['icons'][monster.name]
             icon_rect = icon_surf.get_frect(
-                midleft=bg_rect.topleft + vector(settings['window']['window_width'] * 0.005,
+                midleft=bg_rect.topleft + vector(self.window_width * 0.005,
                                                  item_height / 2 + index * item_height + v_offset))
 
             # name
             name_surf = self.fonts['regular'].render(f'{monster.name} ({monster.level})', False,
                                                      COLORS['white'] if selected else COLORS['black'])
             name_rect = name_surf.get_frect(
-                topleft=(bg_rect.left + settings['window']['window_width'] * 0.05,
+                topleft=(bg_rect.left + self.window_width * 0.05,
                          bg_rect.top + item_height / 3 + index * item_height + v_offset))
 
             # selection bg

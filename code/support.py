@@ -1,6 +1,7 @@
 import pygame
 
 from settings import *
+from config_manager import config_manager
 from os.path import join
 from os import walk
 from pytmx.util_pygame import load_pygame
@@ -127,7 +128,7 @@ def audio_importer(*path):
             full_path = join(folder_path, file_name)
             files[file_name.split('.')[0]] = pygame.mixer.Sound(full_path)
             for file in files.values():
-                file.set_volume(settings['audio']['all'])
+                file.set_volume(config_manager.settings['audio']['all'])
     return files
 
 
@@ -173,3 +174,13 @@ def outline_creator(frame_dict, width):
                 new_surf.blit(white_frame, (0, width))  # left
                 outline_frame_dict[monster][state].append(new_surf)
     return outline_frame_dict
+
+
+# settings functions
+def set_window_size(width, height):
+    x = (1920-width)//2
+    y = (1000-height)//2 + 30
+    config_manager.update_setting('video', 'window_width', width)
+    config_manager.update_setting('video', 'window_height', height)
+    pygame.display.set_window_position((x, y))
+    pygame.display.set_mode((width, height), pygame.RESIZABLE)

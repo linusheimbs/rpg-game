@@ -2,24 +2,6 @@ import pygame
 from pygame.math import Vector2 as vector
 from sys import exit
 
-settings = {
-    'window': {
-        'window_width': 1600, 'window_height': 900
-    },
-    'audio': {
-        'all': 0.0
-    },
-    'show_hitbox': False
-}
-
-
-def set_window_size(width, height):
-    settings['window']['window_width'] = width
-    settings['window']['window_height'] = height
-    pygame.display.set_mode((width, height), pygame.RESIZABLE)
-    if width == 1920:
-        pygame.display.toggle_fullscreen()
-
 
 TILE_SIZE = 64
 

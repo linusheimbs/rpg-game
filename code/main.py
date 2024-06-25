@@ -1,4 +1,7 @@
+import pygame
+
 from settings import *
+from config_manager import config_manager
 from options import Options
 from support import *
 from game import Game
@@ -8,7 +11,8 @@ class MainMenu:
     def __init__(self):
         pygame.init()
         self.display_surface = pygame.display.set_mode(
-            (settings['window']['window_width'], settings['window']['window_height']))
+            (config_manager.settings['video']['window_width'], config_manager.settings['video']['window_height']),
+            flags=pygame.FULLSCREEN if config_manager.settings['video']['fullscreen'] is True else 0)
         pygame.display.set_caption('rpg-game')
         self.fonts = {
             'bold': pygame.font.Font(join('..', 'graphics', 'fonts', 'dogicapixelbold.otf'), 30)

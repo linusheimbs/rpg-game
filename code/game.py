@@ -1,4 +1,5 @@
 from settings import *
+from config_manager import config_manager
 from random import randint, uniform
 
 from support import *
@@ -41,7 +42,8 @@ class Game:
 
         # transition / tint
         self.transition_target = None
-        self.tint_surf = pygame.Surface((settings['window']['window_width'], settings['window']['window_height']))
+        self.tint_surf = pygame.Surface((config_manager.settings['video']['window_width'],
+                                         config_manager.settings['video']['window_height']))
         self.tint_mode = 'untint'
         self.tint_progress = 0
         self.tint_direction = -1
@@ -67,7 +69,8 @@ class Game:
         # options
         self.functions = {
             'open_main_menu': open_main_menu,
-            'close_game': self.close
+            'close_game': self.close,
+            'adjust_surfaces': self.adjust_surfaces
         }
         self.options = Options(self.bg_frames['forest'], self.fonts, self.functions)
         self.options_open = False
@@ -351,6 +354,11 @@ class Game:
     def close(self):
         self.running = False
 
+    # settings
+    def adjust_surfaces(self):
+        self.tint_surf = pygame.transform.scale(self.tint_surf, (config_manager.settings['video']['window_width'],
+                                                                 config_manager.settings['video']['window_height']))
+
     # run function
     def run(self):
         while self.running:
@@ -385,3 +393,6 @@ class Game:
             # debug()
 
             pygame.display.flip()
+
+        for audio in self.audio.values():
+            audio.fadeout(500)

@@ -1,14 +1,16 @@
 import pygame
 
 from settings import *
+from config_manager import config_manager
+from support import set_window_size
 
 
 class Options:
     def __init__(self, bg_surf, fonts, funcs, main_menu=False):
         # display
         self.display_surface = pygame.display.get_surface()
-        self.bg_surf = pygame.transform.scale(bg_surf, (settings['window']['window_width'],
-                                                        settings['window']['window_height']))
+        self.bg_surf = pygame.transform.scale(bg_surf, (config_manager.settings['video']['window_width'],
+                                                        config_manager.settings['video']['window_height']))
 
         # fonts
         self.fonts = fonts
@@ -25,13 +27,15 @@ class Options:
             'general': 0,
             'settings': 0,
             'audio': 0,
-            'window': 0
+            'video': 0,
+            'resolution': 0,
         }
         self.general_options = ['new game', 'save', 'load', 'settings', 'quit'] if self.main_menu\
             else ['resume', 'save', 'load', 'settings', 'main menu']
         self.setting_options = ['audio', 'video']
         self.audio_options = ['all']
-        self.window_options = ['1280 x 720', '1600 x 900', '1920 x 1080']
+        self.video_options = ['windowed', 'fullscreen']
+        self.resolution_options = ['1280 x 720', '1600 x 900', '1920 x 1000']
 
     def draw_ui(self):
         if self.selection_mode == 'general':
@@ -40,13 +44,16 @@ class Options:
             self.draw_selection('settings', self.setting_options)
         elif self.selection_mode == 'audio':
             self.draw_selection('audio', self.audio_options)
-        elif self.selection_mode == 'window':
-            self.draw_selection('window', self.window_options)
+        elif self.selection_mode == 'video':
+            self.draw_selection('video', self.video_options)
+        elif self.selection_mode == 'resolution':
+            self.draw_selection('resolution', self.resolution_options)
 
     def draw_selection(self, selection_type, selection_menu):
-        width, height = settings['window']['window_width']*0.4, settings['window']['window_height']*0.8
-        bg_rect = pygame.FRect(settings['window']['window_width']*0.3, settings['window']['window_height']*0.1, width,
-                               height)
+        width, height = config_manager.settings['video']['window_width']*0.4,\
+                        config_manager.settings['video']['window_height']*0.8
+        bg_rect = pygame.FRect(config_manager.settings['video']['window_width']*0.3,
+                               config_manager.settings['video']['window_height']*0.1, width, height)
         pygame.draw.rect(self.display_surface, COLORS['light'], bg_rect, 0, 5)
 
         item_height = bg_rect.height/len(selection_menu)
@@ -73,6 +80,9 @@ class Options:
                         pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect)
                 self.display_surface.blit(text_surf, text_rect)
 
+    def draw_slider(self):
+        print(self.reset)
+
     def input(self):
         keys = pygame.key.get_just_pressed()
 
@@ -84,8 +94,10 @@ class Options:
                 limiter = len(self.setting_options)
             case 'audio':
                 limiter = len(self.audio_options)
-            case 'window':
-                limiter = len(self.window_options)
+            case 'resolution':
+                limiter = len(self.resolution_options)
+            case 'video':
+                limiter = len(self.video_options)
             case _:
                 limiter = 1
 
@@ -116,15 +128,28 @@ class Options:
                 if self.ui_indexes[self.selection_mode] == 0:
                     self.selection_mode = 'audio'
                 elif self.ui_indexes[self.selection_mode] == 1:
-                    self.selection_mode = 'window'
-            elif self.selection_mode == 'window':
+                    self.selection_mode = 'video'
+            elif self.selection_mode == 'video':
+                if self.ui_indexes[self.selection_mode] == 0:
+                    self.selection_mode = 'resolution'
+                elif self.ui_indexes[self.selection_mode] == 1:
+                    if pygame.display.is_fullscreen() is False:
+                        set_window_size(1920, 1080)
+                        config_manager.update_setting('video', 'fullscreen', True)
+                        pygame.display.toggle_fullscreen()
+                        self.adjust_surface()
+            elif self.selection_mode == 'resolution':
                 if not int(self.display_surface.get_width())\
-                       == int(self.window_options[self.ui_indexes[self.selection_mode]].split(' ')[0]):
-                    set_window_size(*map(int, self.window_options[self.ui_indexes[self.selection_mode]].split(' x ')))
+                       == int(self.resolution_options[self.ui_indexes[self.selection_mode]].split(' ')[0]):
+                    if pygame.display.is_fullscreen() is True:
+                        pygame.display.toggle_fullscreen()
+                        config_manager.update_setting('video', 'fullscreen', False)
+                    set_window_size(
+                        *map(int, self.resolution_options[self.ui_indexes[self.selection_mode]].split(' x ')))
                     self.adjust_surface()
             elif self.selection_mode == 'audio':
                 if self.ui_indexes[self.selection_mode] == 0:
-                    print(self.audio_options)
+                    config_manager.update_setting('audio', 'all', 0.2)
 
         if keys[pygame.K_ESCAPE]:
             if self.selection_mode == 'general':
@@ -132,16 +157,21 @@ class Options:
             elif self.selection_mode == 'settings':
                 self.selection_mode = 'general'
                 self.reset()
-            elif any([self.selection_mode == 'audio', self.selection_mode == 'window']):
+            elif any([self.selection_mode == 'audio', self.selection_mode == 'video']):
                 self.selection_mode = 'settings'
+                self.reset()
+            elif self.selection_mode == 'resolution':
+                self.selection_mode = 'video'
                 self.reset()
 
     def reset(self):
         self.ui_indexes = {k: 0 for k in self.ui_indexes}
 
     def adjust_surface(self):
-        self.bg_surf = pygame.transform.scale(self.bg_surf, (settings['window']['window_width'],
-                                                             settings['window']['window_height']))
+        self.bg_surf = pygame.transform.scale(self.bg_surf, (config_manager.settings['video']['window_width'],
+                                                             config_manager.settings['video']['window_height']))
+        if 'adjust_surfaces' in self.funcs:
+            self.funcs['adjust_surfaces']()
 
     def run(self):
 

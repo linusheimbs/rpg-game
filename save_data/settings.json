@@ -1,0 +1,11 @@
+{
+    "video": {
+        "window_width": 1920,
+        "window_height": 1080,
+        "fullscreen": true
+    },
+    "audio": {
+        "all": 0.2
+    },
+    "show_hitbox": false
+}
