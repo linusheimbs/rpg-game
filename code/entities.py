@@ -1,4 +1,5 @@
 from settings import *
+from config_manager import config_manager
 from support import check_connection
 from timer import Timer
 from random import choice
@@ -66,13 +67,17 @@ class Player(Entity):
     def input(self):
         keys = pygame.key.get_pressed()
         input_vector = vector()
-        if keys[pygame.K_w]:
+        if keys[config_manager.settings['controls']['up'][0]]\
+                or keys[config_manager.settings['controls']['up'][1]]:
             input_vector.y -= 1
-        if keys[pygame.K_s]:
+        if keys[config_manager.settings['controls']['down'][0]]\
+                or keys[config_manager.settings['controls']['down'][1]]:
             input_vector.y += 1
-        if keys[pygame.K_a]:
+        if keys[config_manager.settings['controls']['left'][0]]\
+                or keys[config_manager.settings['controls']['left'][1]]:
             input_vector.x -= 1
-        if keys[pygame.K_d]:
+        if keys[config_manager.settings['controls']['right'][0]]\
+                or keys[config_manager.settings['controls']['right'][1]]:
             input_vector.x += 1
         if keys[pygame.K_LSHIFT]:
             self.speed = 250 * 1.6
@@ -177,7 +182,7 @@ class Characters(Entity):
             self.can_rotate = False
             self.has_noticed = True
             self.player.noticed = True
-            self.sounds['notice'].play()
+            self.sounds['sfx_notice'].play()
 
     def has_los(self):
         if vector(self.rect.center).distance_to(self.player.rect.center) < self.radius:

@@ -6,6 +6,7 @@ from game_data import MONSTER_DATA, ATTACK_DATA
 
 
 class MonsterInventory:
+    # main
     def __init__(self, monsters, fonts, monster_frames):
         self.display_surface = pygame.display.get_surface()
         self.fonts = fonts
@@ -47,6 +48,7 @@ class MonsterInventory:
         self.max_stats['health'] = self.max_stats.pop('max_health')
         self.max_stats['energy'] = self.max_stats.pop('max_energy')
 
+    # input
     def input(self):
         keys = pygame.key.get_just_pressed()
         if keys[pygame.K_w]:
@@ -65,7 +67,8 @@ class MonsterInventory:
 
         self.index = self.index % len(self.monsters)
 
-    def display_list(self):
+    # drawing
+    def draw_list(self):
         # background
         bg_rect = pygame.FRect(self.main_rect.topleft, (self.list_width, self.main_rect.height))
         pygame.draw.rect(self.display_surface, COLORS['gray'], bg_rect, 0, 0, 12, 0, 12, 0)
@@ -130,7 +133,7 @@ class MonsterInventory:
         self.display_surface.blit(shadow_surf, (self.main_rect.left + self.list_width - shadow_surf_width,
                                                 self.main_rect.top))
 
-    def display_main(self, dt):
+    def draw_main(self, dt):
         # data
         monster = self.monsters[self.index]
 
@@ -141,7 +144,7 @@ class MonsterInventory:
 
         # monster display
         top_rect = pygame.FRect(main_rect.topleft, (main_rect.width, main_rect.height * 0.4))
-        self.display_monster(monster, top_rect, dt)
+        self.draw_monster(monster, top_rect, dt)
 
         # health and energy
         bar_data = {
@@ -152,20 +155,20 @@ class MonsterInventory:
             'right_side': main_rect.left + main_rect.width * 3 / 4
         }
         # health
-        self.display_health_bar(monster, bar_data)
+        self.draw_health_bar(monster, bar_data)
         # energy
-        self.display_energy_bar(monster, bar_data)
+        self.draw_energy_bar(monster, bar_data)
 
         # info
         info_top = top_rect.bottom + main_rect.height * 0.08
 
         # stats
-        self.display_stats(monster, main_rect, info_top)
+        self.draw_stats(monster, main_rect, info_top)
 
         # abilities
-        self.display_abilities(monster, main_rect, info_top)
+        self.draw_abilities(monster, main_rect, info_top)
 
-    def display_monster(self, monster, top_rect, dt):
+    def draw_monster(self, monster, top_rect, dt):
         # color themed bg
         pygame.draw.rect(self.display_surface, COLORS[monster.element], top_rect, 0, 0, 0, 12)
 
@@ -203,7 +206,7 @@ class MonsterInventory:
         element_rect = element_surf.get_frect(bottomright=top_rect.bottomright + vector(-10, -10))
         self.display_surface.blit(element_surf, element_rect)
 
-    def display_health_bar(self, monster, bar_data):
+    def draw_health_bar(self, monster, bar_data):
         hp_bar_rect = pygame.FRect((0, 0), (bar_data['width'], bar_data['height'])).move_to(
             midtop=(bar_data['left_side'], bar_data['top']))
         draw_bar(
@@ -220,7 +223,7 @@ class MonsterInventory:
         hp_rect = hp_text.get_frect(midleft=hp_bar_rect.midleft + vector(10, 0))
         self.display_surface.blit(hp_text, hp_rect)
 
-    def display_energy_bar(self, monster, bar_data):
+    def draw_energy_bar(self, monster, bar_data):
         ep_bar_rect = pygame.FRect((0, 0), (bar_data['width'], bar_data['height'])).move_to(
             midtop=(bar_data['right_side'], bar_data['top']))
         draw_bar(
@@ -237,7 +240,7 @@ class MonsterInventory:
         ep_rect = ep_text.get_frect(midleft=ep_bar_rect.midleft + vector(10, 0))
         self.display_surface.blit(ep_text, ep_rect)
 
-    def display_stats(self, monster, main_rect, info_top):
+    def draw_stats(self, monster, main_rect, info_top):
         stats_rect = pygame.FRect(main_rect.left + main_rect.width * 0.05, info_top, main_rect.width * 0.42,
                                   main_rect.height * 0.5)
         stats_text_surf = self.fonts['regular'].render('Stats', False, COLORS['white'])
@@ -272,7 +275,7 @@ class MonsterInventory:
                 radius=2
             )
 
-    def display_abilities(self, monster, main_rect, info_top):
+    def draw_abilities(self, monster, main_rect, info_top):
         abilities_rect = pygame.FRect(main_rect.left + main_rect.width * 0.55, info_top, main_rect.width * 0.4,
                                       main_rect.height * 0.5)
         abilities_text_surf = self.fonts['regular'].render('Ability', False, COLORS['white'])
@@ -288,8 +291,9 @@ class MonsterInventory:
             pygame.draw.rect(self.display_surface, COLORS[element], ability_rect.inflate(10, 10), 0, 4)
             self.display_surface.blit(ability_text_surf, ability_rect)
 
+    # update
     def update(self, dt):
         self.input()
         self.display_surface.blit(self.tint_surf, (0, 0))
-        self.display_list()
-        self.display_main(dt)
+        self.draw_list()
+        self.draw_main(dt)

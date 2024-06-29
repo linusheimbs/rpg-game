@@ -1,19 +1,25 @@
+import sys
+
 import pygame
 
 from settings import *
+from os.path import join
 from config_manager import config_manager
 from support import set_window_size
 
 
 class Options:
-    def __init__(self, bg_surf, fonts, funcs, main_menu=False):
+    # main
+    def __init__(self, bg_surf, funcs, main_menu=False):
         # display
         self.display_surface = pygame.display.get_surface()
         self.bg_surf = pygame.transform.scale(bg_surf, (config_manager.settings['video']['window_width'],
                                                         config_manager.settings['video']['window_height']))
 
         # fonts
-        self.fonts = fonts
+        self.fonts = {
+            'bold': pygame.font.Font(join('..', 'graphics', 'fonts', 'dogicapixelbold.otf'), 30)
+        }
 
         # main menu
         self.main_menu = main_menu
@@ -22,67 +28,229 @@ class Options:
         self.funcs = funcs
 
         # selection
-        self.selection_mode = 'general'
         self.ui_indexes = {
             'general': 0,
             'settings': 0,
             'audio': 0,
             'video': 0,
             'resolution': 0,
+            'controls': 0,
+            'controls2': 0,
+            'control_selection': 0
         }
-        self.general_options = ['new game', 'save', 'load', 'settings', 'quit'] if self.main_menu\
+        self.selection_mode = 'general'
+        self.selected_control = None
+
+        # options
+        self.general_options = ['new game', 'save', 'load', 'settings', 'quit'] if self.main_menu \
             else ['resume', 'save', 'load', 'settings', 'main menu']
-        self.setting_options = ['audio', 'video']
-        self.audio_options = ['all']
+        self.setting_options = ['audio', 'video', 'controls']
+        self.audio_options = ['music', 'sfx']
         self.video_options = ['windowed', 'fullscreen']
         self.resolution_options = ['1280 x 720', '1600 x 900', '1920 x 1000']
+        self.controls_options = [
+            {'action': 'up', 'keys': ['up', 'up']},
+            {'action': 'down', 'keys': ['down', 'down']},
+            {'action': 'left', 'keys': ['left', 'left']},
+            {'action': 'right', 'keys': ['right', 'right']},
+            {'action': 'confirm', 'keys': ['confirm', 'confirm']},
+            {'action': 'inventory', 'keys': ['inventory', 'inventory']}
+        ]
+        self.not_usable_keys = [pygame.K_ESCAPE]
+        self.used_keys = list(key for key_pair in config_manager.settings['controls'].values() for key in key_pair)
 
+        # controls
+        self.action_of_new_key = None
+        self.new_key = None
+
+    # drawing
     def draw_ui(self):
         if self.selection_mode == 'general':
-            self.draw_selection('general', self.general_options)
+            self.draw_general_menu('general', self.general_options)
         elif self.selection_mode == 'settings':
-            self.draw_selection('settings', self.setting_options)
+            self.draw_general_menu('settings', self.setting_options)
         elif self.selection_mode == 'audio':
-            self.draw_selection('audio', self.audio_options)
+            self.draw_general_menu('audio', self.audio_options)
+            self.draw_slider('audio', self.audio_options)
         elif self.selection_mode == 'video':
-            self.draw_selection('video', self.video_options)
+            self.draw_general_menu('video', self.video_options)
         elif self.selection_mode == 'resolution':
-            self.draw_selection('resolution', self.resolution_options)
+            self.draw_general_menu('resolution', self.resolution_options)
+        elif self.selection_mode == 'controls':
+            self.draw_controls_menu()
+        elif self.selection_mode == 'control_selection':
+            self.draw_controls_menu(self.controls_options[self.ui_indexes['controls']]['action'], self.new_key)
 
-    def draw_selection(self, selection_type, selection_menu):
-        width, height = config_manager.settings['video']['window_width']*0.4,\
-                        config_manager.settings['video']['window_height']*0.8
-        bg_rect = pygame.FRect(config_manager.settings['video']['window_width']*0.3,
-                               config_manager.settings['video']['window_height']*0.1, width, height)
-        pygame.draw.rect(self.display_surface, COLORS['light'], bg_rect, 0, 5)
+    def draw_general_menu(self, selection_type, selection_menu):
+        width, height = config_manager.settings['video']['window_width'] * 0.4, \
+                        config_manager.settings['video']['window_height'] * 0.8
+        bg_rect = pygame.FRect(config_manager.settings['video']['window_width'] * 0.3,
+                               config_manager.settings['video']['window_height'] * 0.1, width, height)
+        pygame.draw.rect(self.display_surface, COLORS['light'], bg_rect, 0, 12)
 
-        item_height = bg_rect.height/len(selection_menu)
+        item_height = bg_rect.height / len(selection_menu)
 
         for index, value in enumerate(selection_menu):
             selected = index == self.ui_indexes[selection_type]
             # text
-            if selected:
-                text_color = COLORS['light']
-            else:
-                text_color = COLORS['dark']
-            text_surf = self.fonts['bold'].render(value, False, text_color)
+            text_surf = self.fonts['bold'].render(value, False, COLORS['light' if selected else 'dark'])
             # rect
-            text_rect = text_surf.get_frect(center=bg_rect.midtop + vector(0, item_height/2 + index * item_height))
+            text_rect = text_surf.get_frect(center=bg_rect.midtop + vector(0, item_height / 2 + index * item_height))
             text_bg_rect = pygame.FRect((0, 0), (width, item_height)).move_to(center=text_rect.center)
             # draw
             if bg_rect.collidepoint(text_rect.center):
                 if selected:
                     if text_bg_rect.collidepoint(bg_rect.topleft):
-                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect, 0, 0, 5, 5)
+                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect, 0, 0, 12, 12)
                     elif text_bg_rect.collidepoint(bg_rect.midbottom + vector(0, -1)):
-                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect, 0, 0, 0, 0, 5, 5)
+                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect, 0, 0, 0, 0, 12, 12)
                     else:
                         pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect)
                 self.display_surface.blit(text_surf, text_rect)
 
-    def draw_slider(self):
-        print(self.reset)
+    def draw_slider(self, selection_type, selection_menu):
+        width = config_manager.settings['video']['window_width'] * 0.4
+        height = config_manager.settings['video']['window_height'] * 0.8
+        bg_rect = pygame.FRect(config_manager.settings['video']['window_width'] * 0.3,
+                               config_manager.settings['video']['window_height'] * 0.1, width, height)
+        item_height = bg_rect.height / len(selection_menu)
 
+        slider_width = width * 0.8
+        slider_height = 20
+        slider_y_offset = config_manager.settings['video']['window_height'] * 0.05  # Space between text and slider
+
+        for index, value in enumerate(selection_menu):
+            selected = index == self.ui_indexes[selection_type]
+            slider_x = bg_rect.centerx - slider_width / 2
+            slider_y = bg_rect.midtop[1] + (item_height / 2 + index * item_height) + slider_y_offset
+
+            # Draw slider bar
+            slider_rect = pygame.Rect(slider_x, slider_y, slider_width, slider_height)
+            pygame.draw.rect(self.display_surface, COLORS['dark white' if selected else 'white'], slider_rect)
+
+            # Draw slider thumb
+            slider_value = config_manager.settings[self.selection_mode][value]
+            thumb_x = slider_x + slider_value * slider_width
+            thumb_rect = pygame.Rect(thumb_x - 10, slider_y - 5, 20, slider_height + 10)
+            pygame.draw.rect(self.display_surface, COLORS['black' if selected else 'gray'], thumb_rect)
+
+            # Render slider value text
+            slider_value_text = self.fonts['bold'].render(
+                f"{slider_value: .2f}", True, COLORS['light' if selected else 'dark'])
+            text_x = slider_x + slider_width / 2 - slider_value_text.get_width() / 2
+            text_y = slider_y + slider_y_offset
+
+            # Blit value of slider
+            self.display_surface.blit(slider_value_text, (text_x, text_y))
+
+    def draw_controls_menu(self, selected_key=None, new_key=None):
+        width, height = config_manager.settings['video']['window_width'] * 0.4, \
+                        config_manager.settings['video']['window_height'] * 0.8
+        bg_rect = pygame.FRect(config_manager.settings['video']['window_width'] * 0.3,
+                               config_manager.settings['video']['window_height'] * 0.1, width, height)
+
+        action_bg_rect = pygame.FRect(bg_rect.left, bg_rect.top, width / 3, bg_rect.height)
+        keys_bg_rect = pygame.FRect(bg_rect.left + width / 3, bg_rect.top, 2 * width / 3, bg_rect.height)
+
+        pygame.draw.rect(self.display_surface, COLORS['light'], action_bg_rect, 0, 0, 12, 0, 12)
+        pygame.draw.rect(self.display_surface, COLORS['light'], keys_bg_rect, 0, 0, 0, 12, 0, 12)
+
+        item_height = round(bg_rect.height / len(self.controls_options), 2)
+
+        for index, control in enumerate(self.controls_options):
+            action_text_surf = self.fonts['bold'].render(control['action'], False, COLORS['gray'])
+            action_text_rect = action_text_surf.get_rect(
+                center=action_bg_rect.midtop + vector(0, item_height / 2) + vector(0, index * item_height))
+            self.display_surface.blit(action_text_surf, action_text_rect)
+
+            selected_vertical = self.ui_indexes['controls']
+            selected_horizontal = self.ui_indexes['controls2']
+
+            for i, key_name in enumerate(control['keys']):
+                if index == selected_vertical:
+                    double_keys = config_manager.settings['controls'][key_name]
+                    key_code = double_keys[i]
+
+                    # Calculate position and dimensions within keys_bg_rect
+                    key_x = keys_bg_rect.left + (keys_bg_rect.width / 2) * i
+                    key_y = keys_bg_rect.top + (index * item_height)
+                    key_rect_width = keys_bg_rect.width / 2
+                    key_rect_height = item_height
+
+                    # Check if current key is selected
+                    if index == selected_vertical and selected_horizontal == i and not selected_key:
+                        # Draw gray rectangle covering the selected key area
+                        if index == 0 and selected_horizontal == 1:
+                            pygame.draw.rect(self.display_surface, COLORS['gray'],
+                                             (key_x, key_y, key_rect_width, key_rect_height), 0, 0, 0, 12, 0)
+                        elif index == len(self.controls_options) - 1 and selected_horizontal == 1:
+                            pygame.draw.rect(self.display_surface, COLORS['gray'],
+                                             (key_x, key_y, key_rect_width, key_rect_height), 0, 0, 0, 0, 0, 12)
+                        else:
+                            pygame.draw.rect(self.display_surface, COLORS['gray'],
+                                             (key_x, key_y, key_rect_width, key_rect_height))
+                        # Render key text in light color
+                        key_text_color = COLORS['light']
+                    else:
+                        # Render key text in gray color
+                        key_text_color = COLORS['gray']
+
+                    # Render key text
+                    if key_code:
+                        key_text_surf = self.fonts['bold'].render(pygame.key.name(key_code), False, key_text_color)
+                    else:
+                        key_text_surf = self.fonts['bold'].render('Empty', False, key_text_color)
+                    key_text_rect = key_text_surf.get_rect(
+                        center=(key_x + key_rect_width / 2, key_y + key_rect_height / 2))
+                    self.display_surface.blit(key_text_surf, key_text_rect)
+                else:
+                    double_keys = config_manager.settings['controls'][key_name]
+                    key_code = double_keys[i]
+
+                    # Calculate position and dimensions within keys_bg_rect
+                    key_x = keys_bg_rect.left + (keys_bg_rect.width / 2) * i
+                    key_y = keys_bg_rect.top + (index * item_height)
+                    key_rect_width = keys_bg_rect.width / 2
+                    key_rect_height = item_height
+
+                    # Render key text
+                    if key_code:
+                        key_text_surf = self.fonts['bold'].render(pygame.key.name(key_code), False, COLORS['gray'])
+                    else:
+                        key_text_surf = self.fonts['bold'].render('Empty', False, COLORS['gray'])
+                    key_text_rect = key_text_surf.get_rect(
+                        center=(key_x + key_rect_width / 2, key_y + key_rect_height / 2))
+                    self.display_surface.blit(key_text_surf, key_text_rect)
+
+        if selected_key:
+            # Calculate position and dimensions within keys_bg_rect
+            new_key_bg_x = keys_bg_rect.left + (keys_bg_rect.width / 2) * self.ui_indexes['controls2']
+            new_key_bg_y = keys_bg_rect.top + (self.ui_indexes['controls'] * item_height)
+            new_key_bg_width = keys_bg_rect.width / 2
+            new_key_bg_height = item_height
+
+            # Draw keys_bg_rect with appropriate borders
+            if self.ui_indexes['controls'] == 0 and self.ui_indexes['controls2'] == 1:
+                pygame.draw.rect(self.display_surface, COLORS['gray'],
+                                 (new_key_bg_x, new_key_bg_y, new_key_bg_width, new_key_bg_height), 0, 0, 0, 12, 0)
+            elif self.ui_indexes['controls'] == len(self.controls_options) - 1 and self.ui_indexes['controls2'] == 1:
+                pygame.draw.rect(self.display_surface, COLORS['gray'],
+                                 (new_key_bg_x, new_key_bg_y, new_key_bg_width, new_key_bg_height), 0, 0, 0, 0, 0, 12)
+            else:
+                pygame.draw.rect(self.display_surface, COLORS['gray'],
+                                 (new_key_bg_x, new_key_bg_y, new_key_bg_width, new_key_bg_height))
+
+            # x for new key
+            x_pos = keys_bg_rect.width / 4 + self.ui_indexes['controls2'] * keys_bg_rect.width / 2
+            y_pos = self.ui_indexes['controls'] * item_height + item_height / 2
+            # new key
+            new_key_text = pygame.key.name(new_key) if new_key else '[enter a \n\nnew key]'
+            new_key_text_surf = self.fonts['bold'].render(new_key_text, False, COLORS['light'])
+            new_key_text_rect = new_key_text_surf.get_rect(
+                center=keys_bg_rect.topleft + vector(x_pos, y_pos))
+            self.display_surface.blit(new_key_text_surf, new_key_text_rect)
+
+    # input
     def input(self):
         keys = pygame.key.get_just_pressed()
 
@@ -98,17 +266,80 @@ class Options:
                 limiter = len(self.resolution_options)
             case 'video':
                 limiter = len(self.video_options)
+            case 'controls':
+                limiter = len(self.controls_options)
             case _:
                 limiter = 1
 
-        # movement
-        if limiter > 0:
-            if keys[pygame.K_w]:
+        # navigation
+        if limiter > 0 and self.selection_mode != 'controls':
+            if keys[config_manager.settings['controls']['up'][0]]\
+                    or keys[config_manager.settings['controls']['up'][1]]:
                 self.ui_indexes[self.selection_mode] = (self.ui_indexes[self.selection_mode] - 1) % limiter
-            elif keys[pygame.K_s]:
+            elif keys[config_manager.settings['controls']['down'][0]]\
+                    or keys[config_manager.settings['controls']['down'][1]]:
                 self.ui_indexes[self.selection_mode] = (self.ui_indexes[self.selection_mode] + 1) % limiter
 
-        if keys[pygame.K_SPACE] or keys[pygame.K_f]:
+        if self.selection_mode == 'audio':
+            current_option = self.audio_options[self.ui_indexes[self.selection_mode]]
+            if keys[config_manager.settings['controls']['left'][0]]\
+                    or keys[config_manager.settings['controls']['left'][1]]:
+                new_volume = max(
+                    0, config_manager.settings[self.selection_mode][current_option] - 0.05
+                )
+                config_manager.update_setting(
+                    'audio',
+                    current_option,
+                    new_volume
+                )
+                if 'adjust_audio' in self.funcs:
+                    self.funcs['adjust_audio'](current_option)
+            elif keys[config_manager.settings['controls']['right'][0]]\
+                    or keys[config_manager.settings['controls']['right'][1]]:
+                new_volume = min(
+                    1, config_manager.settings[self.selection_mode][current_option] + 0.05
+                )
+                config_manager.update_setting(
+                    'audio',
+                    current_option,
+                    new_volume
+                )
+                if 'adjust_audio' in self.funcs:
+                    self.funcs['adjust_audio'](current_option)
+
+        if self.selection_mode == 'controls':
+            if keys[config_manager.settings['controls']['up'][0]]\
+                    or keys[config_manager.settings['controls']['up'][1]]:
+                self.ui_indexes['controls'] = (self.ui_indexes['controls'] - 1) % limiter
+            elif keys[config_manager.settings['controls']['down'][0]]\
+                    or keys[config_manager.settings['controls']['down'][1]]:
+                self.ui_indexes['controls'] = (self.ui_indexes['controls'] + 1) % limiter
+            elif keys[config_manager.settings['controls']['left'][0]]\
+                    or keys[config_manager.settings['controls']['left'][1]]:
+                self.ui_indexes['controls2'] = (self.ui_indexes['controls2'] - 1) % 2
+            elif keys[config_manager.settings['controls']['right'][0]]\
+                    or keys[config_manager.settings['controls']['right'][1]]:
+                self.ui_indexes['controls2'] = (self.ui_indexes['controls2'] + 1) % 2
+
+        if self.selection_mode == 'control_selection':
+            for key_code in range(len(keys)):
+                if keys[key_code] and key_code not in self.used_keys and key_code not in self.not_usable_keys:
+                    self.new_key = key_code if key_code != pygame.K_BACKSPACE else 0
+                    config_manager.update_setting(
+                        'controls',
+                        self.action_of_new_key,
+                        self.new_key,
+                        self.ui_indexes['controls2']
+                    )
+                    self.update_used_keys()
+                    self.selection_mode = 'controls'
+                    self.new_key = None
+                    self.action_of_new_key = None
+                    break  # Only handle the first pressed key
+
+        # selection
+        if keys[config_manager.settings['controls']['confirm'][0]]\
+                or keys[config_manager.settings['controls']['confirm'][1]]:
             if self.selection_mode == 'general':
                 if self.ui_indexes[self.selection_mode] == 0:
                     if self.main_menu:
@@ -129,6 +360,8 @@ class Options:
                     self.selection_mode = 'audio'
                 elif self.ui_indexes[self.selection_mode] == 1:
                     self.selection_mode = 'video'
+                elif self.ui_indexes[self.selection_mode] == 2:
+                    self.selection_mode = 'controls'
             elif self.selection_mode == 'video':
                 if self.ui_indexes[self.selection_mode] == 0:
                     self.selection_mode = 'resolution'
@@ -139,7 +372,7 @@ class Options:
                         pygame.display.toggle_fullscreen()
                         self.adjust_surface()
             elif self.selection_mode == 'resolution':
-                if not int(self.display_surface.get_width())\
+                if not int(self.display_surface.get_width()) \
                        == int(self.resolution_options[self.ui_indexes[self.selection_mode]].split(' ')[0]):
                     if pygame.display.is_fullscreen() is True:
                         pygame.display.toggle_fullscreen()
@@ -147,32 +380,42 @@ class Options:
                     set_window_size(
                         *map(int, self.resolution_options[self.ui_indexes[self.selection_mode]].split(' x ')))
                     self.adjust_surface()
-            elif self.selection_mode == 'audio':
-                if self.ui_indexes[self.selection_mode] == 0:
-                    config_manager.update_setting('audio', 'all', 0.2)
+            elif self.selection_mode == 'controls':
+                self.action_of_new_key = self.controls_options[self.ui_indexes[self.selection_mode]]['action']
+                self.selection_mode = 'control_selection'
 
+        # go back
         if keys[pygame.K_ESCAPE]:
-            if self.selection_mode == 'general':
+            if self.selection_mode == 'general' and not self.main_menu:
                 self.running = False
             elif self.selection_mode == 'settings':
                 self.selection_mode = 'general'
                 self.reset()
-            elif any([self.selection_mode == 'audio', self.selection_mode == 'video']):
+            elif self.selection_mode in ['audio', 'video', 'controls']:
                 self.selection_mode = 'settings'
                 self.reset()
             elif self.selection_mode == 'resolution':
                 self.selection_mode = 'video'
                 self.reset()
+            elif self.selection_mode == 'control_selection':
+                self.selection_mode = 'controls'
+                self.new_key = None
+                self.action_of_new_key = None
 
     def reset(self):
         self.ui_indexes = {k: 0 for k in self.ui_indexes}
 
+    # adjusting values based on option changes
     def adjust_surface(self):
         self.bg_surf = pygame.transform.scale(self.bg_surf, (config_manager.settings['video']['window_width'],
                                                              config_manager.settings['video']['window_height']))
         if 'adjust_surfaces' in self.funcs:
             self.funcs['adjust_surfaces']()
 
+    def update_used_keys(self):
+        self.used_keys = list(key for key_list in config_manager.settings['controls'].values() for key in key_list)
+
+    # run
     def run(self):
 
         self.running = True

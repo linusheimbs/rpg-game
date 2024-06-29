@@ -151,7 +151,7 @@ class Battle:
                 case 'attacks':
                     limiter = len(self.current_monster.monster.get_abilities())
                 case 'target':
-                    limiter = len(self.opponent_sprites) if self.selection_side == 'opponent' \
+                    limiter = len(self.opponent_sprites) if self.selection_side == 'opponent'\
                         else len(self.player_sprites)
                 case 'defend':
                     limiter = 2
@@ -162,14 +162,17 @@ class Battle:
 
             if limiter > 0:
                 # up
-                if keys[pygame.K_w]:
+                if keys[config_manager.settings['controls']['up'][0]]\
+                        or keys[config_manager.settings['controls']['up'][1]]:
                     self.ui_indexes[self.selection_mode] = (self.ui_indexes[self.selection_mode] - 1) % limiter
                 # down
-                if keys[pygame.K_s]:
+                if keys[config_manager.settings['controls']['down'][0]]\
+                        or keys[config_manager.settings['controls']['down'][1]]:
                     self.ui_indexes[self.selection_mode] = (self.ui_indexes[self.selection_mode] + 1) % limiter
 
             # confirm
-            if keys[pygame.K_f] or keys[pygame.K_SPACE]:
+            if keys[config_manager.settings['controls']['confirm'][0]]\
+                    or keys[config_manager.settings['controls']['confirm'][1]]:
                 # target
                 if self.selection_mode == 'target':
                     sprite_group = self.opponent_sprites if self.selection_side == 'opponent' else self.player_sprites
@@ -509,7 +512,7 @@ class Battle:
         # Play the attack animation
         AttackSprite(target_sprite.rect.center, self.monster_frames['attacks'][ATTACK_DATA[attack]['animation']],
                      self.battle_sprites)
-        self.sounds[ATTACK_DATA[attack]['animation']].play()
+        self.sounds['sfx_' + ATTACK_DATA[attack]['animation']].play()
 
         # Get correct attack damage amount (defense, element)
         attack_element = ATTACK_DATA[attack]['element']

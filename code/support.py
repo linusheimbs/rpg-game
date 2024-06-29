@@ -127,8 +127,6 @@ def audio_importer(*path):
         for file_name in file_names:
             full_path = join(folder_path, file_name)
             files[file_name.split('.')[0]] = pygame.mixer.Sound(full_path)
-            for file in files.values():
-                file.set_volume(config_manager.settings['audio']['all'])
     return files
 
 

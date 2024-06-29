@@ -14,14 +14,11 @@ class MainMenu:
             (config_manager.settings['video']['window_width'], config_manager.settings['video']['window_height']),
             flags=pygame.FULLSCREEN if config_manager.settings['video']['fullscreen'] is True else 0)
         pygame.display.set_caption('rpg-game')
-        self.fonts = {
-            'bold': pygame.font.Font(join('..', 'graphics', 'fonts', 'dogicapixelbold.otf'), 30)
-        }
         self.bg_frames = import_folder_dict('..', 'graphics', 'backgrounds')
         self.option_functions = {
             'new_game': self.change_state
         }
-        self.options = Options(self.bg_frames['forest'], self.fonts, self.option_functions, True)
+        self.options = Options(self.bg_frames['forest'], self.option_functions, True)
         self.game = None
         self.open = True
 

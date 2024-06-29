@@ -5,7 +5,34 @@
         "fullscreen": true
     },
     "audio": {
-        "all": 0.2
+        "music": 0.2,
+        "sfx": 0.2
+    },
+    "controls": {
+        "up": [
+            119,
+            107
+        ],
+        "down": [
+            115,
+            0
+        ],
+        "left": [
+            97,
+            0
+        ],
+        "right": [
+            100,
+            0
+        ],
+        "confirm": [
+            102,
+            32
+        ],
+        "inventory": [
+            105,
+            9
+        ]
     },
     "show_hitbox": false
 }

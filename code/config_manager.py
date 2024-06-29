@@ -1,3 +1,6 @@
+import pygame
+
+from settings import *
 import json
 from debug import debug
 
@@ -11,7 +14,16 @@ class ConfigManager:
                 'fullscreen': True
             },
             'audio': {
-                'all': 0.2
+                'music': 0.2,
+                'sfx': 0.2
+            },
+            'controls': {
+                'up': [pygame.K_w, 0],
+                'down': [pygame.K_s, 0],
+                'left': [pygame.K_a, 0],
+                'right': [pygame.K_d, 0],
+                'confirm': [pygame.K_f, pygame.K_SPACE],
+                'inventory': [pygame.K_i, pygame.K_TAB],
             },
             'show_hitbox': False
         }
@@ -28,9 +40,12 @@ class ConfigManager:
         with open(self.filepath, 'w') as file:
             json.dump(self.settings, file, indent=4)
 
-    def update_setting(self, category, key, value):
+    def update_setting(self, category, key, value, control=None):
         if category in self.settings and key in self.settings[category]:
-            self.settings[category][key] = value
+            if control:
+                self.settings[category][key][control] = value
+            else:
+                self.settings[category][key] = value
             self.save_settings()
         else:
             debug("Invalid setting key or category")

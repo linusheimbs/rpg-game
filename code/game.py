@@ -1,3 +1,5 @@
+import sys
+
 from settings import *
 from config_manager import config_manager
 from random import randint, uniform
@@ -52,7 +54,7 @@ class Game:
         # setup
         self.import_assets()
         self.setup(self.tmx_maps[START_POS], 'start')
-        self.audio['overworld'].play(loops=-1, fade_ms=1000)
+        self.audio['music_overworld'].play(loops=-1, fade_ms=1000)
 
         # overlays
         self.dialogue_tree = None
@@ -70,9 +72,10 @@ class Game:
         self.functions = {
             'open_main_menu': open_main_menu,
             'close_game': self.close,
-            'adjust_surfaces': self.adjust_surfaces
+            'adjust_surfaces': self.adjust_surfaces,
+            'adjust_audio': self.adjust_volume
         }
-        self.options = Options(self.bg_frames['forest'], self.fonts, self.functions)
+        self.options = Options(self.bg_frames['forest'], self.functions)
         self.options_open = False
         self.closing = False
         self.running = True
@@ -106,6 +109,8 @@ class Game:
         }
 
         self.audio = audio_importer('..', 'audio')
+        self.adjust_volume('music')
+        self.adjust_volume('sfx')
 
     def setup(self, tmx_map, player_start_pos):
         # clear the map
@@ -183,7 +188,8 @@ class Game:
     def input(self):
         if not self.dialogue_tree and not self.battle:
             keys = pygame.key.get_just_pressed()
-            if (keys[pygame.K_f] and not self.player.blocked) or (keys[pygame.K_SPACE] and not self.player.blocked):
+            if (keys[config_manager.settings['controls']['confirm'][0]] and not self.player.blocked)\
+                    or (keys[config_manager.settings['controls']['confirm'][1]] and not self.player.blocked):
                 for character in self.character_sprites:
                     if check_connection(TILE_SIZE * 2, self.player, character, 30):
                         self.player.block()
@@ -214,8 +220,8 @@ class Game:
                 monster.energy = monster.get_stat('max_energy')
             self.player.unblock()
         elif not character.character_data['defeated']:
-            self.audio['overworld'].fadeout(1000)
-            self.audio['battle'].play(loops=-1, fade_ms=4000)
+            self.audio['music_overworld'].fadeout(1000)
+            self.audio['music_battle'].play(loops=-1, fade_ms=4000)
 
             self.transition_target = Battle(
                 player_monsters=self.player_monsters,
@@ -260,8 +266,8 @@ class Game:
                 new_monster = Monster(sprites[0].monsters[monster_index], lvl)
                 wild_monsters[i] = new_monster
 
-            self.audio['overworld'].fadeout(1000)
-            self.audio['battle'].play(loops=-1, fade_ms=4000)
+            self.audio['music_overworld'].fadeout(1000)
+            self.audio['music_battle'].play(loops=-1, fade_ms=4000)
 
             # battle
             self.transition_target = Battle(
@@ -278,8 +284,8 @@ class Game:
             self.tint_mode = 'tint'
 
     def end_battle(self, character):
-        self.audio['battle'].fadeout(1000)
-        self.audio['overworld'].play(loops=-1, fade_ms=1000)
+        self.audio['music_battle'].fadeout(1000)
+        self.audio['music_overworld'].play(loops=-1, fade_ms=1000)
 
         self.transition_target = 'level'
         self.tint_mode = 'tint'
@@ -358,6 +364,11 @@ class Game:
     def adjust_surfaces(self):
         self.tint_surf = pygame.transform.scale(self.tint_surf, (config_manager.settings['video']['window_width'],
                                                                  config_manager.settings['video']['window_height']))
+
+    def adjust_volume(self, category):
+        for name, sound in self.audio.items():
+            if name.split('_')[0] == category:
+                sound.set_volume(config_manager.settings['audio'][category])
 
     # run function
     def run(self):

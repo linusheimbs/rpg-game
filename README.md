@@ -82,8 +82,7 @@ Inspired by a tutorial video by [ClearCode](https://www.youtube.com/watch?v=fo4e
 ### Battle:
 - [x] Add a skip turn button
 - [ ] Review and redesign the element system to support multiple elements
-- [ ] Rework defense system for better balance
-    - [ ] Review and adjust all stat systems, including exp
+- [ ] Review and adjust all stat systems, including exp
 - [ ] Overhaul catch system
 - [x] Completely redesign battle system without a timer, using speed checks
 - [x] Implement action queue and execution system
