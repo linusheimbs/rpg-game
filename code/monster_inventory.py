@@ -2,7 +2,7 @@ import pygame
 from settings import *
 from config_manager import config_manager
 from support import draw_bar
-from game_data import MONSTER_DATA, ATTACK_DATA
+from game_data import game_data
 
 
 class MonsterInventory:
@@ -38,7 +38,7 @@ class MonsterInventory:
 
         # max values
         self.max_stats = {}
-        for data in MONSTER_DATA.values():
+        for data in game_data.monster_data.values():
             for stat, value in data['stats'].items():
                 if stat != 'element':
                     if stat not in self.max_stats:
@@ -283,7 +283,7 @@ class MonsterInventory:
         self.display_surface.blit(abilities_text_surf, ability_text_rect)
 
         for index, ability in enumerate(monster.get_abilities()):
-            element = ATTACK_DATA[ability]['element']
+            element = game_data.attack_data[ability]['element']
             ability_text_surf = self.fonts['regular'].render(ability, False, COLORS['black'])
             x = abilities_rect.left + index % 2 * abilities_rect.width / 2
             y = (abilities_rect.top + ability_text_rect.height * 2) + (index//2 * (ability_text_surf.get_height() * 6))

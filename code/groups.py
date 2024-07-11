@@ -14,8 +14,19 @@ class AllSprites(pygame.sprite.Group):
         self.collision_sprites = collision_sprites
 
     def draw(self, player):
-        self.offset.x = -(player.rect.centerx - config_manager.settings['video']['window_width'] / 2)
-        self.offset.y = -(player.rect.centery - config_manager.settings['video']['window_height'] / 2)
+        window_width = config_manager.settings['video']['window_width']
+        window_height = config_manager.settings['video']['window_height']
+
+        self.offset.x = -(player.rect.centerx - window_width / 2)
+        self.offset.y = -(player.rect.centery - window_height / 2)
+
+        # Define the visible area (viewport) based on the player's position
+        visible_area = pygame.Rect(
+            player.rect.centerx - window_width / 2,
+            player.rect.centery - window_height / 2,
+            window_width,
+            window_height
+        )
 
         bg_sprites = [sprite for sprite in self if sprite.z < WORLD_LAYERS['main']]
         main_sprites = sorted([sprite for sprite in self if sprite.z == WORLD_LAYERS['main']],
@@ -24,17 +35,19 @@ class AllSprites(pygame.sprite.Group):
 
         for layer in (bg_sprites, main_sprites, fg_sprites):
             for sprite in layer:
-                if isinstance(sprite, Entity):
-                    self.display_surface.blit(self.shadow_surf, sprite.rect.topleft + self.offset + vector(40, 108))
-                self.display_surface.blit(sprite.image, sprite.rect.topleft + self.offset)
-                if sprite == player and player.noticed:
-                    rect = self.notice_surf.get_frect(midbottom=sprite.rect.midtop)
-                    self.display_surface.blit(self.notice_surf, rect.topleft + self.offset)
+                # Check if the sprite is within the visible area
+                if sprite.rect.colliderect(visible_area):
+                    if isinstance(sprite, Entity):
+                        self.display_surface.blit(self.shadow_surf, sprite.rect.topleft + self.offset + vector(40, 108))
+                    self.display_surface.blit(sprite.image, sprite.rect.topleft + self.offset)
+                    if sprite == player and player.noticed:
+                        rect = self.notice_surf.get_rect(midbottom=sprite.rect.midtop)
+                        self.display_surface.blit(self.notice_surf, rect.topleft + self.offset)
 
         # Draw hitboxes for all sprites in collision_sprites and for player
         if config_manager.settings['show_hitbox']:
             for sprite in self.collision_sprites:
-                if hasattr(sprite, 'hitbox'):
+                if hasattr(sprite, 'hitbox') and sprite.hitbox.colliderect(visible_area):
                     hitbox_copy = sprite.hitbox.copy()
                     hitbox_surf = pygame.Surface((int(hitbox_copy.width), int(hitbox_copy.height)), pygame.SRCALPHA)
                     hitbox_surf.fill((255, 0, 0, 128))  # Semi-transparent red for visibility
@@ -47,6 +60,7 @@ class AllSprites(pygame.sprite.Group):
                     hitbox_surf.fill((255, 0, 0, 128))  # Semi-transparent red for visibility
                     hitbox_rect = hitbox_copy.move(self.offset)  # Move the hitbox by the offset
                     self.display_surface.blit(hitbox_surf, hitbox_rect.topleft)
+                    break
 
 
 class BattleSprites(pygame.sprite.Group):

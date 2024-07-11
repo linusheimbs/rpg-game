@@ -1,7 +1,9 @@
+import os.path
 import sys
 
 import pygame
 
+from debug import debug
 from settings import *
 from os.path import join
 from config_manager import config_manager
@@ -17,8 +19,11 @@ class Options:
                                                         config_manager.settings['video']['window_height']))
 
         # fonts
+        screen_width, _ = self.display_surface.get_size()
+        font_size_ratio = 0.015
+        font_size = int(screen_width * font_size_ratio)
         self.fonts = {
-            'bold': pygame.font.Font(join('..', 'graphics', 'fonts', 'dogicapixelbold.otf'), 30)
+            'bold': pygame.font.Font(join('..', 'graphics', 'fonts', 'dogicapixelbold.otf'), font_size)
         }
 
         # main menu
@@ -36,7 +41,9 @@ class Options:
             'resolution': 0,
             'controls': 0,
             'controls2': 0,
-            'control_selection': 0
+            'control_selection': 0,
+            'save': 0,
+            'load': 0
         }
         self.selection_mode = 'general'
         self.selected_control = None
@@ -58,6 +65,8 @@ class Options:
         ]
         self.not_usable_keys = [pygame.K_ESCAPE]
         self.used_keys = list(key for key_pair in config_manager.settings['controls'].values() for key in key_pair)
+        self.save_options = [f'Save Slot {i}' for i in range(10)]
+        self.load_options = ['Quick Load'] + [f'Load Slot {i}' for i in range(10)]
 
         # controls
         self.action_of_new_key = None
@@ -80,6 +89,10 @@ class Options:
             self.draw_controls_menu()
         elif self.selection_mode == 'control_selection':
             self.draw_controls_menu(self.controls_options[self.ui_indexes['controls']]['action'], self.new_key)
+        elif self.selection_mode == 'save':
+            self.draw_save_menu()
+        elif self.selection_mode == 'load':
+            self.draw_load_menu()
 
     def draw_general_menu(self, selection_type, selection_menu):
         width, height = config_manager.settings['video']['window_width'] * 0.4, \
@@ -250,6 +263,60 @@ class Options:
                 center=keys_bg_rect.topleft + vector(x_pos, y_pos))
             self.display_surface.blit(new_key_text_surf, new_key_text_rect)
 
+    def draw_save_menu(self):
+        width, height = config_manager.settings['video']['window_width'] * 0.4, \
+                        config_manager.settings['video']['window_height'] * 0.8
+        bg_rect = pygame.FRect(config_manager.settings['video']['window_width'] * 0.3,
+                               config_manager.settings['video']['window_height'] * 0.1, width, height)
+        pygame.draw.rect(self.display_surface, COLORS['light'], bg_rect, 0, 12)
+
+        item_height = bg_rect.height / len(self.save_options)
+
+        for index, value in enumerate(self.save_options):
+            selected = index == self.ui_indexes['save']
+            # text
+            text_surf = self.fonts['bold'].render(value, False, COLORS['light' if selected else 'dark'])
+            # rect
+            text_rect = text_surf.get_frect(center=bg_rect.midtop + vector(0, item_height / 2 + index * item_height))
+            text_bg_rect = pygame.FRect((0, 0), (width, item_height)).move_to(center=text_rect.center)
+            # draw
+            if bg_rect.collidepoint(text_rect.center):
+                if selected:
+                    if text_bg_rect.collidepoint(bg_rect.topleft):
+                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect, 0, 0, 12, 12)
+                    elif text_bg_rect.collidepoint(bg_rect.midbottom + vector(0, -1)):
+                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect, 0, 0, 0, 0, 12, 12)
+                    else:
+                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect)
+                self.display_surface.blit(text_surf, text_rect)
+
+    def draw_load_menu(self):
+        width, height = config_manager.settings['video']['window_width'] * 0.4, \
+                        config_manager.settings['video']['window_height'] * 0.8
+        bg_rect = pygame.FRect(config_manager.settings['video']['window_width'] * 0.3,
+                               config_manager.settings['video']['window_height'] * 0.1, width, height)
+        pygame.draw.rect(self.display_surface, COLORS['light'], bg_rect, 0, 12)
+
+        item_height = bg_rect.height / len(self.load_options)
+
+        for index, value in enumerate(self.load_options):
+            selected = index == self.ui_indexes['load']
+            # text
+            text_surf = self.fonts['bold'].render(value, False, COLORS['light' if selected else 'dark'])
+            # rect
+            text_rect = text_surf.get_frect(center=bg_rect.midtop + vector(0, item_height / 2 + index * item_height))
+            text_bg_rect = pygame.FRect((0, 0), (width, item_height)).move_to(center=text_rect.center)
+            # draw
+            if bg_rect.collidepoint(text_rect.center):
+                if selected:
+                    if text_bg_rect.collidepoint(bg_rect.topleft):
+                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect, 0, 0, 12, 12)
+                    elif text_bg_rect.collidepoint(bg_rect.midbottom + vector(0, -1)):
+                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect, 0, 0, 0, 0, 12, 12)
+                    else:
+                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect)
+                self.display_surface.blit(text_surf, text_rect)
+
     # input
     def input(self):
         keys = pygame.key.get_just_pressed()
@@ -268,6 +335,10 @@ class Options:
                 limiter = len(self.video_options)
             case 'controls':
                 limiter = len(self.controls_options)
+            case 'save':
+                limiter = len(self.save_options)
+            case 'load':
+                limiter = len(self.load_options)
             case _:
                 limiter = 1
 
@@ -340,55 +411,84 @@ class Options:
         # selection
         if keys[config_manager.settings['controls']['confirm'][0]]\
                 or keys[config_manager.settings['controls']['confirm'][1]]:
-            if self.selection_mode == 'general':
-                if self.ui_indexes[self.selection_mode] == 0:
-                    if self.main_menu:
-                        self.funcs['new_game']()
-                    self.running = False
-                elif self.ui_indexes[self.selection_mode] == 3:
-                    self.selection_mode = 'settings'
-                elif self.ui_indexes[self.selection_mode] == 4:
-                    if self.main_menu:
-                        pygame.quit()
-                        exit()
-                    else:
-                        self.funcs['open_main_menu']()
-                        self.funcs['close_game']()
-                        self.running = False
-            elif self.selection_mode == 'settings':
-                if self.ui_indexes[self.selection_mode] == 0:
-                    self.selection_mode = 'audio'
-                elif self.ui_indexes[self.selection_mode] == 1:
-                    self.selection_mode = 'video'
-                elif self.ui_indexes[self.selection_mode] == 2:
-                    self.selection_mode = 'controls'
-            elif self.selection_mode == 'video':
-                if self.ui_indexes[self.selection_mode] == 0:
-                    self.selection_mode = 'resolution'
-                elif self.ui_indexes[self.selection_mode] == 1:
-                    if pygame.display.is_fullscreen() is False:
-                        set_window_size(1920, 1080)
-                        config_manager.update_setting('video', 'fullscreen', True)
-                        pygame.display.toggle_fullscreen()
+            match self.selection_mode:
+                case 'general':
+                    match self.ui_indexes[self.selection_mode]:
+                        case 0:
+                            if self.main_menu:
+                                self.funcs['new_game']()
+                            self.reset()
+                            self.running = False
+                        case 1 if not self.main_menu:
+                            self.selection_mode = 'save'
+                        case 2:
+                            self.selection_mode = 'load'
+                        case 3:
+                            self.selection_mode = 'settings'
+                        case 4:
+                            if self.main_menu:
+                                pygame.quit()
+                                exit()
+                            else:
+                                self.funcs['open_main_menu']()
+                                self.funcs['close_game']()
+                                self.running = False
+                        case _:
+                            debug("Unhandled case in 'general' selection mode")
+                case 'settings':
+                    match self.ui_indexes[self.selection_mode]:
+                        case 0:
+                            self.selection_mode = 'audio'
+                        case 1:
+                            self.selection_mode = 'video'
+                        case 2:
+                            self.selection_mode = 'controls'
+                case 'video':
+                    match self.ui_indexes[self.selection_mode]:
+                        case 0:
+                            self.selection_mode = 'resolution'
+                        case 1:
+                            if not pygame.display.is_fullscreen():
+                                set_window_size(1920, 1080)
+                                config_manager.update_setting('video', 'fullscreen', True)
+                                pygame.display.toggle_fullscreen()
+                                self.adjust_surface()
+                                self.adjust_fonts()
+                        case _:
+                            debug("Unhandled case in 'video' selection mode")
+                case 'resolution':
+                    if int(self.display_surface.get_width()) != int(
+                            self.resolution_options[self.ui_indexes[self.selection_mode]].split(' ')[0]):
+                        if pygame.display.is_fullscreen():
+                            pygame.display.toggle_fullscreen()
+                            config_manager.update_setting('video', 'fullscreen', False)
+                        set_window_size(
+                            *map(int, self.resolution_options[self.ui_indexes[self.selection_mode]].split(' x ')))
                         self.adjust_surface()
-            elif self.selection_mode == 'resolution':
-                if not int(self.display_surface.get_width()) \
-                       == int(self.resolution_options[self.ui_indexes[self.selection_mode]].split(' ')[0]):
-                    if pygame.display.is_fullscreen() is True:
-                        pygame.display.toggle_fullscreen()
-                        config_manager.update_setting('video', 'fullscreen', False)
-                    set_window_size(
-                        *map(int, self.resolution_options[self.ui_indexes[self.selection_mode]].split(' x ')))
-                    self.adjust_surface()
-            elif self.selection_mode == 'controls':
-                self.action_of_new_key = self.controls_options[self.ui_indexes[self.selection_mode]]['action']
-                self.selection_mode = 'control_selection'
+                        self.adjust_fonts()
+                case 'controls':
+                    self.action_of_new_key = self.controls_options[self.ui_indexes[self.selection_mode]]['action']
+                    self.selection_mode = 'control_selection'
+                case 'save':
+                    self.funcs['save'](f"sfslot{self.ui_indexes['save']}v{VERSION}.json")
+                case 'load':
+                    if 'load' in self.funcs:
+                        if self.ui_indexes['load'] == 0:
+                            filename = f"sfslotqs{VERSION}.json"
+                        else:
+                            filename = f"sfslot{self.ui_indexes['load'] - 1}v{VERSION}.json"
+                        self.funcs['load'](filename)
+                        self.running = False
+                        self.selection_mode = 'general'
+                        self.reset()
+                case _:
+                    debug("Unhandled selection mode")
 
         # go back
         if keys[pygame.K_ESCAPE]:
             if self.selection_mode == 'general' and not self.main_menu:
                 self.running = False
-            elif self.selection_mode == 'settings':
+            elif self.selection_mode in ['settings', 'save', 'load']:
                 self.selection_mode = 'general'
                 self.reset()
             elif self.selection_mode in ['audio', 'video', 'controls']:
@@ -407,10 +507,19 @@ class Options:
 
     # adjusting values based on option changes
     def adjust_surface(self):
+        # surfaces
         self.bg_surf = pygame.transform.scale(self.bg_surf, (config_manager.settings['video']['window_width'],
                                                              config_manager.settings['video']['window_height']))
         if 'adjust_surfaces' in self.funcs:
             self.funcs['adjust_surfaces']()
+
+    def adjust_fonts(self):
+        screen_width, _ = self.display_surface.get_size()
+        font_size_ratio = 0.015
+        font_size = int(screen_width * font_size_ratio)
+        self.fonts = {
+            'bold': pygame.font.Font(join('..', 'graphics', 'fonts', 'dogicapixelbold.otf'), font_size)
+        }
 
     def update_used_keys(self):
         self.used_keys = list(key for key_list in config_manager.settings['controls'].values() for key in key_list)

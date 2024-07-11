@@ -1,4 +1,4 @@
-from game_data import MONSTER_DATA, ATTACK_DATA
+from game_data import game_data
 
 
 class Monster:
@@ -8,20 +8,20 @@ class Monster:
         self.paused = True
 
         # stats
-        self.element = MONSTER_DATA[name]['stats']['element']
-        self.base_stats = MONSTER_DATA[name]['stats']
+        self.element = game_data.monster_data[name]['stats']['element']
+        self.base_stats = game_data.monster_data[name]['stats']
         self.health = self.base_stats['max_health'] * self.level
         self.energy = max(1, self.base_stats['max_energy'] * (self.level // 10))
-        self.abilities = MONSTER_DATA[name]['abilities']
+        self.abilities = game_data.monster_data[name]['abilities']
         self.defending = False
 
         # experience
         self.exp = 0
         self.level_up = self.level * self.level * 150
-        self.evolution = MONSTER_DATA[self.name]['evolve']
+        self.evolution = game_data.monster_data[self.name]['evolve']
 
     def reduce_energy(self, attack):
-        self.energy -= ATTACK_DATA[attack]['cost']
+        self.energy -= game_data.attack_data[attack]['cost']
 
     def stat_limiter(self):
         self.health = max(0, min(self.health, self.get_stat('max_health')))
@@ -52,7 +52,7 @@ class Monster:
         }
 
     def get_base_damage(self, attack):
-        return self.get_stat('attack') * ATTACK_DATA[attack]['amount']
+        return self.get_stat('attack') * game_data.attack_data[attack]['amount']
 
     def get_abilities(self, all_abilities=True):
         if all_abilities:
@@ -66,5 +66,21 @@ class Monster:
             (self.energy, self.get_stat('max_energy'))
         )
 
+    # save/load
+    def to_dict(self):
+        return {
+            'name': self.name,
+            'level': self.level,
+            'health': self.health,
+            'abilities': self.abilities,
+            'exp': self.exp
+        }
+
+    def from_dict(self, data):
+        self.health = data['health']
+        self.abilities = data['abilities']
+        self.exp = data['exp']
+
+    # update
     def update(self):
         self.stat_limiter()

@@ -3,7 +3,7 @@ from config_manager import config_manager
 from sprites import MonsterSprite, MonsterNameSprite, MonsterLevelSprite, MonsterStatsSprite, MonsterOutlineSprite, \
     AttackSprite, TimedSprite
 from groups import BattleSprites
-from game_data import ATTACK_DATA
+from game_data import game_data
 from support import draw_bar
 from timer import Timer
 from random import choice
@@ -180,7 +180,7 @@ class Battle:
                     monster_sprite = sprites[list(sprites.keys())[self.ui_indexes['target']]]
 
                     if self.selected_attack:
-                        if self.current_monster.monster.energy >= ATTACK_DATA[self.selected_attack]['cost']:
+                        if self.current_monster.monster.energy >= game_data.attack_data[self.selected_attack]['cost']:
                             self.selected = True
                             self.actions_list.append(
                                 {
@@ -213,7 +213,7 @@ class Battle:
                     self.selection_mode = 'target'
                     self.selected_attack = self.current_monster.monster.get_abilities(
                         all_abilities=False)[self.ui_indexes['attacks']]
-                    self.selection_side = ATTACK_DATA[self.selected_attack]['side']
+                    self.selection_side = game_data.attack_data[self.selected_attack]['side']
                     self.ui_indexes = {k: 0 for k in self.ui_indexes}
                 # defend
                 elif self.selection_mode == 'defend':
@@ -320,7 +320,7 @@ class Battle:
             selected = index == self.ui_indexes['attacks']
             # text
             if selected:
-                element = ATTACK_DATA[ability]['element']
+                element = game_data.attack_data[ability]['element']
                 text_color = COLORS[element]
             else:
                 text_color = COLORS['black']
@@ -510,12 +510,15 @@ class Battle:
 
     def apply_attack(self, target_sprite, attack, amount):
         # Play the attack animation
-        AttackSprite(target_sprite.rect.center, self.monster_frames['attacks'][ATTACK_DATA[attack]['animation']],
-                     self.battle_sprites)
-        self.sounds['sfx_' + ATTACK_DATA[attack]['animation']].play()
+        AttackSprite(
+            target_sprite.rect.center,
+            self.monster_frames['attacks'][game_data.attack_data[attack]['animation']],
+            self.battle_sprites
+        )
+        self.sounds['sfx_' + game_data.attack_data[attack]['animation']].play()
 
         # Get correct attack damage amount (defense, element)
-        attack_element = ATTACK_DATA[attack]['element']
+        attack_element = game_data.attack_data[attack]['element']
         target_element = target_sprite.monster.element
 
         # Check for vulnerabilities
@@ -537,7 +540,7 @@ class Battle:
 
     def opponent_attack(self):
         ability = choice(self.current_monster.monster.get_abilities())
-        random_target = choice(self.opponent_sprites.sprites()) if ATTACK_DATA[ability]['side'] == 'player' \
+        random_target = choice(self.opponent_sprites.sprites()) if game_data.attack_data[ability]['side'] == 'player' \
             else choice(self.player_sprites.sprites())
         self.actions_list.append(
             {
@@ -591,7 +594,7 @@ class Battle:
                 monster.energy = monster.get_stat('max_energy')
             self.end_battle(self.character)
         # opponent wins
-        if len(self.player_sprites) == 0 and not self.battle_over:
+        elif len(self.player_sprites) == 0 and not self.battle_over:
             self.battle_over = True
             pygame.quit()
             exit()

@@ -131,6 +131,24 @@ class Player(Entity):
                     self.rect.centery = self.hitbox.centery
         return collided
 
+    def to_dict(self):
+        return {
+            'pos': (self.rect.centerx, self.rect.centery),
+            'facing_direction': self.facing_direction,
+            'speed': self.speed,
+            'animation_speed': self.animation_speed,
+            'noticed': self.noticed
+        }
+
+    def from_dict(self, data):
+        self.rect.center = data['pos']
+        self.hitbox.center = self.rect.center + vector(0, self.hitbox_offset_y)
+        self.hitbox.center = self.rect.center
+        self.facing_direction = data['facing_direction']
+        self.speed = data['speed']
+        self.animation_speed = data['animation_speed']
+        self.noticed = data['noticed']
+
     def update(self, dt):
         if not self.blocked:
             self.input()
@@ -140,13 +158,13 @@ class Player(Entity):
 
 class Characters(Entity):
     def __init__(self, pos, frames, groups, facing_direction, character_data, player, create_dialogue,
-                 collision_sprites, radius, nurse, sounds):
+                 collision_sprites, radius, char_id, sounds):
         super().__init__(pos, frames, groups, facing_direction)
         self.character_data = character_data
         self.player = player
         self.create_dialogue = create_dialogue
         self.collision_rects = [sprite.rect for sprite in collision_sprites if sprite is not self]
-        self.nurse = nurse
+        self.char_id = char_id
         self.monsters = {i: Monster(name, lvl) for i, (name, lvl) in character_data['monsters'].items()}\
             if 'monsters' in character_data else None
 
@@ -204,6 +222,36 @@ class Characters(Entity):
                 self.has_moved = True
                 self.create_dialogue(self)
                 self.player.noticed = False
+
+    def to_dict(self):
+        return {
+            'pos': (self.rect.centerx, self.rect.centery),
+            'facing_direction': self.facing_direction,
+            'character_data': self.character_data,
+            'has_moved': self.has_moved,
+            'can_rotate': self.can_rotate,
+            'has_noticed': self.has_noticed,
+            'radius': self.radius,
+            'view_directions': self.view_directions,
+        }
+
+    def from_dict(self, data):
+        self.rect.center = data['pos']
+        self.hitbox.center = self.rect.center + vector(0, self.hitbox_offset_y)
+        self.facing_direction = data['facing_direction']
+
+        # Convert character_data keys to integers
+        self.character_data = data['character_data']
+        if 'monsters' in self.character_data:
+            self.character_data['monsters'] = {int(k): v for k, v in self.character_data['monsters'].items()}
+            self.monsters = {i: Monster(name, lvl) for i, (name, lvl) in self.character_data['monsters'].items()}\
+                if 'monsters' in self.character_data else None
+
+        self.has_moved = data['has_moved']
+        self.can_rotate = data['can_rotate']
+        self.has_noticed = data['has_noticed']
+        self.radius = data['radius']
+        self.view_directions = data['view_directions']
 
     def update(self, dt):
         for timer in self.timers.values():

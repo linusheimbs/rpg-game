@@ -77,7 +77,7 @@ Inspired by a tutorial video by [ClearCode](https://www.youtube.com/watch?v=fo4e
 
 ### Character:
 - [ ] Implement pathfinding for the player
-- [ ] Assign unique IDs to all NPCs, not just the nurse
+- [x] Assign unique IDs to all NPCs, not just the nurse
 
 ### Battle:
 - [x] Add a skip turn button
@@ -93,11 +93,12 @@ Inspired by a tutorial video by [ClearCode](https://www.youtube.com/watch?v=fo4e
 - [ ] Update existing sounds and add new ones
 
 ### Other:
-- [ ] Optimize sprite rendering based on player proximity to reduce lag
+- [x] Optimize sprite rendering based on player proximity to reduce lag
 - [x] Create main menu with full functionality and UI
 - [x] Design options menu with UI elements
 - [ ] Implement save and load functionality and UI
 - [ ] Introduce new items to the game
+- [ ] Change debug output to a console-style output system
 
 ### Bugfixes:
 - [x] Fix issue where player actions can cause crashes during action execution

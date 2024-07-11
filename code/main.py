@@ -16,16 +16,19 @@ class MainMenu:
         pygame.display.set_caption('rpg-game')
         self.bg_frames = import_folder_dict('..', 'graphics', 'backgrounds')
         self.option_functions = {
-            'new_game': self.change_state
+            'new_game': self.load_game,
+            'load': self.load_game
         }
         self.options = Options(self.bg_frames['forest'], self.option_functions, True)
         self.game = None
         self.open = True
 
-    def change_state(self):
+    def load_game(self, filename=None):
         self.open = not self.open
         if not self.open:
-            self.game = Game(self.change_state)
+            self.game = Game(self.load_game)
+            if filename:
+                self.game.load_game(filename)
 
     def run(self):
         while True:

@@ -10,11 +10,11 @@ class ConfigManager:
         self.filepath = filepath
         self.settings = {
             'video': {
-                'window_width': 1920, 'window_height': 1080,
-                'fullscreen': True
+                'window_width': 1600, 'window_height': 900,
+                'fullscreen': False
             },
             'audio': {
-                'music': 0.2,
+                'music': 0.0,
                 'sfx': 0.2
             },
             'controls': {

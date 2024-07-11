@@ -2,10 +2,11 @@ import sys
 
 from settings import *
 from config_manager import config_manager
+from save_manager import save_manager
 from random import randint, uniform
 
 from support import *
-from game_data import CHARACTER_DATA
+from game_data import game_data
 from timer import Timer
 
 from sprites import Sprite, AnimatedSprite, MonsterPatchSprite, BorderSprite, CollidableSprite, TransitionSprite
@@ -52,8 +53,9 @@ class Game:
         self.tint_speed = 600
 
         # setup
+        self.current_world = 'world'
         self.import_assets()
-        self.setup(self.tmx_maps[START_POS], 'start')
+        self.setup(self.tmx_maps[self.current_world], 'start')
         self.audio['music_overworld'].play(loops=-1, fade_ms=1000)
 
         # overlays
@@ -73,7 +75,9 @@ class Game:
             'open_main_menu': open_main_menu,
             'close_game': self.close,
             'adjust_surfaces': self.adjust_surfaces,
-            'adjust_audio': self.adjust_volume
+            'adjust_audio': self.adjust_volume,
+            'save': self.save_game,
+            'load': self.load_game
         }
         self.options = Options(self.bg_frames['forest'], self.functions)
         self.options_open = False
@@ -158,6 +162,7 @@ class Game:
                              self.transition_sprites)
 
         # entities
+        player_created = False
         for obj in tmx_map.get_layer_by_name('Entities'):
             if obj.name == 'Player':
                 if obj.properties['pos'] == player_start_pos:
@@ -168,6 +173,7 @@ class Game:
                         facing_direction=obj.properties['direction'],
                         collision_sprites=self.collision_sprites
                     )
+                    player_created = True
         for obj in tmx_map.get_layer_by_name('Entities'):
             if obj.name != 'Player':
                 Characters(
@@ -175,14 +181,24 @@ class Game:
                     frames=self.overworld_frames['characters'][obj.properties['graphic']],
                     groups=(self.all_sprites, self.collision_sprites, self.character_sprites),
                     facing_direction=obj.properties['direction'],
-                    character_data=CHARACTER_DATA[obj.properties['character_id']],
+                    character_data=game_data.character_data[obj.properties['character_id']],
                     player=self.player,
                     create_dialogue=self.create_dialogue,
                     collision_sprites=self.collision_sprites,
                     radius=obj.properties['radius'],
-                    nurse=obj.properties['character_id'] == 'Nurse',
+                    char_id=obj.properties['character_id'],
                     sounds=self.audio
                 )
+
+        if not player_created:
+            # Create the player at the start position if not already created
+            self.player = Player(
+                pos=player_start_pos,
+                frames=self.overworld_frames['characters']['player'],
+                groups=self.all_sprites,
+                facing_direction='down',  # Default facing direction
+                collision_sprites=self.collision_sprites
+            )
 
     # dialogue system
     def input(self):
@@ -205,6 +221,12 @@ class Game:
                     self.monster_index_open = False
                 else:
                     self.options.run()
+            if keys[pygame.K_F5]:
+                if not self.options_open and not self.monster_index_open:
+                    self.save_game(f'sfslotqs{VERSION}.json')
+            if keys[pygame.K_F9]:
+                if not self.options_open and not self.monster_index_open:
+                    self.load_game(f'sfslotqs{VERSION}.json')
 
     def create_dialogue(self, character):
         if not self.dialogue_tree:
@@ -214,7 +236,7 @@ class Game:
 
     def end_dialogue(self, character):
         self.dialogue_tree = None
-        if character.nurse:
+        if character.char_id == 'Nurse':
             for monster in self.player_monsters.values():
                 monster.health = monster.get_stat('max_health')
                 monster.energy = monster.get_stat('max_energy')
@@ -291,9 +313,9 @@ class Game:
         self.tint_mode = 'tint'
         if character:
             character.character_data['defeated'] = True
+            # game_data.character_data[character]
             self.create_dialogue(character)
         elif not self.evolution:
-
             self.player.unblock()
 
     # transition system
@@ -317,6 +339,7 @@ class Game:
                     self.battle = None
                 else:
                     self.setup(self.tmx_maps[self.transition_target[0]], self.transition_target[1])
+                    self.current_world = self.transition_target[0]
                 self.tint_mode = 'untint'
                 self.transition_target = None
 
@@ -370,6 +393,50 @@ class Game:
             if name.split('_')[0] == category:
                 sound.set_volume(config_manager.settings['audio'][category])
 
+    # save/load
+    def to_dict(self):
+        return {
+            'current_world': self.current_world,
+            'player_monsters': [monster.to_dict() for monster in self.player_monsters.values()]
+        }
+
+    def from_dict(self, data):
+        self.current_world = data['current_world']
+        self.player_monsters = data['player_monsters']
+
+    def save_game(self, file_name=f'savefile{VERSION}.json'):
+        characters_data = [character.to_dict() for character in self.character_sprites]
+        save_data = {
+            'game_data': self.to_dict(),
+            'player': self.player.to_dict(),
+            'characters': characters_data,
+            'character_data': game_data.to_dict()
+        }
+        save_manager.save(save_data, file_name)
+
+    def load_game(self, file_name=f'savefile{VERSION}.json'):
+        save_data = save_manager.load(file_name)
+        if save_data:
+            if 'game_data' in save_data:
+                self.from_dict(save_data['game_data'])
+                if 'player_monsters' in save_data['game_data']:
+                    self.player_monsters = {}
+                    for i, monster_data in enumerate(save_data['game_data']['player_monsters']):
+                        monster = Monster(monster_data['name'], monster_data['level'])
+                        monster.from_dict(monster_data)
+                        self.player_monsters[i] = monster
+            if 'character_data' in save_data:
+                game_data.from_dict(save_data['character_data'])
+
+            if 'player' in save_data:
+                # Setup the game with the loaded tmx_map
+                self.setup(self.tmx_maps[self.current_world], save_data['player']['pos'])
+
+                self.player.from_dict(save_data['player'])
+            if 'characters' in save_data:
+                for char_data, character in zip(save_data['characters'], self.character_sprites):
+                    character.from_dict(char_data)
+
     # run function
     def run(self):
         while self.running:
@@ -384,7 +451,8 @@ class Game:
 
             # update
             self.encounter_timer.update()
-            self.input()
+            if not self.player.blocked or self.monster_index_open:
+                self.input()
             self.transition_check()
             self.all_sprites.update(dt)
             self.check_for_monster()
