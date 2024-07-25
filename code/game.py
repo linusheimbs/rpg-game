@@ -1,5 +1,7 @@
 import sys
 
+import pygame.display
+
 from settings import *
 from config_manager import config_manager
 from save_manager import save_manager
@@ -25,7 +27,7 @@ from debug import debug
 
 class Game:
     # general setup
-    def __init__(self, open_main_menu):
+    def __init__(self, open_main_menu, save_data=None):
         self.display_surface = pygame.display.get_surface()
         self.clock = pygame.time.Clock()
 
@@ -75,6 +77,7 @@ class Game:
             'open_main_menu': open_main_menu,
             'close_game': self.close,
             'adjust_surfaces': self.adjust_surfaces,
+            'adjust_fonts': self.adjust_fonts,
             'adjust_audio': self.adjust_volume,
             'save': self.save_game,
             'load': self.load_game
@@ -83,6 +86,11 @@ class Game:
         self.options_open = False
         self.closing = False
         self.running = True
+
+        if save_data:
+            self.load_game(save_data, True)
+
+        self.start_up_delay = Timer(250, autostart=True)
 
     def import_assets(self):
         self.tmx_maps = import_tmx_maps('..', 'data', 'maps')
@@ -105,11 +113,14 @@ class Game:
 
         self.star_animation_frames = import_folder('..', 'graphics', 'other', 'star animation')
 
+        screen_width, _ = self.display_surface.get_size()
+        font_size_ratio = 0.015
+        font_size = int(screen_width * font_size_ratio)
         self.fonts = {
-            'dialogue': pygame.font.Font(join('..', 'graphics', 'fonts', 'PixeloidSans.ttf'), 30),
-            'regular': pygame.font.Font(join('..', 'graphics', 'fonts', 'PixeloidSans.ttf'), 18),
-            'small': pygame.font.Font(join('..', 'graphics', 'fonts', 'PixeloidSans.ttf'), 14),
-            'bold': pygame.font.Font(join('..', 'graphics', 'fonts', 'dogicapixelbold.otf'), 20)
+            'dialogue': pygame.font.Font(join('..', 'graphics', 'fonts', 'PixeloidSans.ttf'), font_size),
+            'regular': pygame.font.Font(join('..', 'graphics', 'fonts', 'PixeloidSans.ttf'), font_size),
+            'small': pygame.font.Font(join('..', 'graphics', 'fonts', 'PixeloidSans.ttf'), int(font_size * 0.6)),
+            'bold': pygame.font.Font(join('..', 'graphics', 'fonts', 'dogicapixelbold.otf'), font_size)
         }
 
         self.audio = audio_importer('..', 'audio')
@@ -333,7 +344,7 @@ class Game:
         if self.tint_mode == 'tint':
             self.tint_progress += self.tint_speed * dt
             if self.tint_progress >= 255:
-                if type(self.transition_target) == Battle:
+                if type(self.transition_target) is Battle:
                     self.battle = self.transition_target
                 elif self.transition_target == 'level':
                     self.battle = None
@@ -387,6 +398,19 @@ class Game:
     def adjust_surfaces(self):
         self.tint_surf = pygame.transform.scale(self.tint_surf, (config_manager.settings['video']['window_width'],
                                                                  config_manager.settings['video']['window_height']))
+        self.monster_index.adjust_surfaces()
+
+    def adjust_fonts(self):
+        screen_width, _ = self.display_surface.get_size()
+        font_size_ratio = 0.015
+        font_size = int(screen_width * font_size_ratio)
+        self.fonts = {
+            'dialogue': pygame.font.Font(join('..', 'graphics', 'fonts', 'PixeloidSans.ttf'), font_size),
+            'regular': pygame.font.Font(join('..', 'graphics', 'fonts', 'PixeloidSans.ttf'), font_size),
+            'small': pygame.font.Font(join('..', 'graphics', 'fonts', 'PixeloidSans.ttf'), int(font_size * 0.6)),
+            'bold': pygame.font.Font(join('..', 'graphics', 'fonts', 'dogicapixelbold.otf'), font_size)
+        }
+        self.monster_index.adjust_fonts()
 
     def adjust_volume(self, category):
         for name, sound in self.audio.items():
@@ -404,7 +428,7 @@ class Game:
         self.current_world = data['current_world']
         self.player_monsters = data['player_monsters']
 
-    def save_game(self, file_name=f'savefile{VERSION}.json'):
+    def save_game(self, file_name):
         characters_data = [character.to_dict() for character in self.character_sprites]
         save_data = {
             'game_data': self.to_dict(),
@@ -414,30 +438,40 @@ class Game:
         }
         save_manager.save(save_data, file_name)
 
-    def load_game(self, file_name=f'savefile{VERSION}.json'):
-        save_data = save_manager.load(file_name)
-        if save_data:
-            if 'game_data' in save_data:
-                self.from_dict(save_data['game_data'])
-                if 'player_monsters' in save_data['game_data']:
-                    self.player_monsters = {}
-                    for i, monster_data in enumerate(save_data['game_data']['player_monsters']):
-                        monster = Monster(monster_data['name'], monster_data['level'])
-                        monster.from_dict(monster_data)
-                        self.player_monsters[i] = monster
-            if 'character_data' in save_data:
-                game_data.from_dict(save_data['character_data'])
+    def load_game(self, file_name, exists=True):
+        if exists:
+            save_data = save_manager.load(file_name)
+            if save_data:
+                if 'game_data' in save_data:
+                    self.from_dict(save_data['game_data'])
+                    if 'player_monsters' in save_data['game_data']:
+                        self.player_monsters = {}
+                        for i, monster_data in enumerate(save_data['game_data']['player_monsters']):
+                            monster = Monster(monster_data['name'], monster_data['level'])
+                            monster.from_dict(monster_data)
+                            self.player_monsters[i] = monster
+                if 'character_data' in save_data:
+                    game_data.from_dict(save_data['character_data'])
 
-            if 'player' in save_data:
-                # Setup the game with the loaded tmx_map
-                self.setup(self.tmx_maps[self.current_world], save_data['player']['pos'])
+                if 'player' in save_data:
+                    # Set up the game with the loaded tmx_map
+                    self.setup(self.tmx_maps[self.current_world], save_data['player']['pos'])
 
-                self.player.from_dict(save_data['player'])
-            if 'characters' in save_data:
-                for char_data, character in zip(save_data['characters'], self.character_sprites):
-                    character.from_dict(char_data)
+                    self.player.from_dict(save_data['player'])
+                if 'characters' in save_data:
+                    for char_data, character in zip(save_data['characters'], self.character_sprites):
+                        character.from_dict(char_data)
+            self.monster_index = MonsterInventory(self.player_monsters, self.fonts, self.monster_frames)
 
     # run function
+    def show_loading_screen(self):
+        loading_font = pygame.font.Font(None, 74)
+        loading_text = loading_font.render('Loading...', True, (255, 255, 255))
+        self.display_surface.blit(loading_text,
+                                  (self.display_surface.get_width() // 2 - loading_text.get_width() // 2,
+                                   self.display_surface.get_height() // 2 - loading_text.get_height() // 2))
+        pygame.display.flip()
+
     def run(self):
         while self.running:
             dt = self.clock.tick() / 1000
@@ -450,26 +484,31 @@ class Game:
                     exit()
 
             # update
-            self.encounter_timer.update()
-            if not self.player.blocked or self.monster_index_open:
-                self.input()
-            self.transition_check()
-            self.all_sprites.update(dt)
-            self.check_for_monster()
+            if self.start_up_delay.active:
+                self.start_up_delay.update()
 
-            # drawing
-            self.all_sprites.draw(self.player)
+            if not self.start_up_delay.active:
+                self.encounter_timer.update()
+                if not self.player.blocked or self.monster_index_open:
+                    self.input()
+                self.transition_check()
+                self.all_sprites.update(dt)
+                self.check_for_monster()
 
-            # overlays
-            if self.dialogue_tree:          self.dialogue_tree.update(self.evolution)
-            if self.monster_index_open:     self.monster_index.update(dt)
-            if self.battle:                 self.battle.update(dt)
-            if self.evolution:              self.evolution.update(dt)
-            if self.options_open:           self.options.run()
+                # drawing
+                self.all_sprites.draw(self.player)
 
-            self.tint_screen(dt)
+                # overlays
+                if self.dialogue_tree:          self.dialogue_tree.update(self.evolution)
+                if self.monster_index_open:     self.monster_index.update(dt)
+                if self.battle:                 self.battle.update(dt)
+                if self.evolution:              self.evolution.update(dt)
+                if self.options_open:           self.options.run()
 
-            # debug()
+                self.tint_screen(dt)
+
+            debug_str = ''
+            debug(debug_str)
 
             pygame.display.flip()
 

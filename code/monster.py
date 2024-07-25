@@ -78,8 +78,13 @@ class Monster:
 
     def from_dict(self, data):
         self.health = data['health']
-        self.abilities = data['abilities']
+        self.abilities = {int(k): v for k, v in data['abilities'].items()}
         self.exp = data['exp']
+        self.level = data['level']
+        self.name = data['name']
+
+    def __repr__(self):
+        return f"{self.name} at level {self.level}"
 
     # update
     def update(self):

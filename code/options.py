@@ -1,5 +1,6 @@
 import os.path
 import sys
+from tkinter import Tk as tk
 
 import pygame
 
@@ -54,7 +55,7 @@ class Options:
         self.setting_options = ['audio', 'video', 'controls']
         self.audio_options = ['music', 'sfx']
         self.video_options = ['windowed', 'fullscreen']
-        self.resolution_options = ['1280 x 720', '1600 x 900', '1920 x 1000']
+        self.resolution_options = ['1280 x 720', '1600 x 900', '1920 x 1080']
         self.controls_options = [
             {'action': 'up', 'keys': ['up', 'up']},
             {'action': 'down', 'keys': ['down', 'down']},
@@ -99,27 +100,38 @@ class Options:
                         config_manager.settings['video']['window_height'] * 0.8
         bg_rect = pygame.FRect(config_manager.settings['video']['window_width'] * 0.3,
                                config_manager.settings['video']['window_height'] * 0.1, width, height)
-        pygame.draw.rect(self.display_surface, COLORS['light'], bg_rect, 0, 12)
+        pygame.draw.rect(self.display_surface, COLORS['light-gray'], bg_rect, 0, 12)
 
         item_height = bg_rect.height / len(selection_menu)
 
         for index, value in enumerate(selection_menu):
             selected = index == self.ui_indexes[selection_type]
-            # text
-            text_surf = self.fonts['bold'].render(value, False, COLORS['light' if selected else 'dark'])
-            # rect
-            text_rect = text_surf.get_frect(center=bg_rect.midtop + vector(0, item_height / 2 + index * item_height))
-            text_bg_rect = pygame.FRect((0, 0), (width, item_height)).move_to(center=text_rect.center)
-            # draw
-            if bg_rect.collidepoint(text_rect.center):
-                if selected:
-                    if text_bg_rect.collidepoint(bg_rect.topleft):
-                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect, 0, 0, 12, 12)
-                    elif text_bg_rect.collidepoint(bg_rect.midbottom + vector(0, -1)):
-                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect, 0, 0, 0, 0, 12, 12)
-                    else:
-                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect)
-                self.display_surface.blit(text_surf, text_rect)
+
+            # Text rendering
+            text_color = COLORS['dark'] if selected else COLORS['light']
+            text_surf = self.fonts['bold'].render(value, True, text_color)
+
+            # Text rectangle
+            text_rect = text_surf.get_rect(
+                center=bg_rect.midtop + pygame.math.Vector2(0, item_height / 2 + index * item_height))
+            text_bg_rect = pygame.Rect(0, 0, width, item_height)
+            text_bg_rect.center = text_rect.center
+
+            # Draw item background with rounded corners
+            if selected:
+                pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect, border_radius=12)
+                pygame.draw.rect(self.display_surface, COLORS['light'], text_bg_rect.inflate(-6, -6),
+                                 border_radius=12)
+
+            # Shadow effect
+            shadow_offset = (2, 2)
+            shadow_color = COLORS['black']
+            shadow_rect = text_rect.move(*shadow_offset)
+            shadow_surf = self.fonts['bold'].render(value, True, shadow_color)
+            self.display_surface.blit(shadow_surf, shadow_rect)
+
+            # Blit the text surface
+            self.display_surface.blit(text_surf, text_rect)
 
     def draw_slider(self, selection_type, selection_menu):
         width = config_manager.settings['video']['window_width'] * 0.4
@@ -149,12 +161,20 @@ class Options:
 
             # Render slider value text
             slider_value_text = self.fonts['bold'].render(
-                f"{slider_value: .2f}", True, COLORS['light' if selected else 'dark'])
+                f"{slider_value: .2f}", True, COLORS['dark' if selected else 'light'])
             text_x = slider_x + slider_width / 2 - slider_value_text.get_width() / 2
             text_y = slider_y + slider_y_offset
+            slider_value_text_rect = slider_value_text.get_rect().move((text_x, text_y))
+
+            # Shadow effect
+            shadow_offset = (2, 2)
+            shadow_color = COLORS['black']
+            shadow_rect = slider_value_text_rect.move(shadow_offset)
+            shadow_surf = self.fonts['bold'].render(f"{slider_value: .2f}", True, shadow_color)
+            self.display_surface.blit(shadow_surf, shadow_rect)
 
             # Blit value of slider
-            self.display_surface.blit(slider_value_text, (text_x, text_y))
+            self.display_surface.blit(slider_value_text, slider_value_text_rect)
 
     def draw_controls_menu(self, selected_key=None, new_key=None):
         width, height = config_manager.settings['video']['window_width'] * 0.4, \
@@ -165,15 +185,25 @@ class Options:
         action_bg_rect = pygame.FRect(bg_rect.left, bg_rect.top, width / 3, bg_rect.height)
         keys_bg_rect = pygame.FRect(bg_rect.left + width / 3, bg_rect.top, 2 * width / 3, bg_rect.height)
 
-        pygame.draw.rect(self.display_surface, COLORS['light'], action_bg_rect, 0, 0, 12, 0, 12)
-        pygame.draw.rect(self.display_surface, COLORS['light'], keys_bg_rect, 0, 0, 0, 12, 0, 12)
+        pygame.draw.rect(self.display_surface, COLORS['light-gray'], action_bg_rect, 0, 0, 12, 0, 12)
+        pygame.draw.rect(self.display_surface, COLORS['light-gray'], keys_bg_rect, 0, 0, 0, 12, 0, 12)
 
         item_height = round(bg_rect.height / len(self.controls_options), 2)
 
+        # Shadow effect
+        shadow_offset = (2, 2)
+        shadow_color = COLORS['black']
+
         for index, control in enumerate(self.controls_options):
-            action_text_surf = self.fonts['bold'].render(control['action'], False, COLORS['gray'])
+            action_text_surf = self.fonts['bold'].render(control['action'], False, COLORS['light'])
             action_text_rect = action_text_surf.get_rect(
                 center=action_bg_rect.midtop + vector(0, item_height / 2) + vector(0, index * item_height))
+
+            # Shadow effect
+            shadow_rect = action_text_rect.move(shadow_offset)
+            shadow_surf = self.fonts['bold'].render(control['action'], True, shadow_color)
+            self.display_surface.blit(shadow_surf, shadow_rect)
+
             self.display_surface.blit(action_text_surf, action_text_rect)
 
             selected_vertical = self.ui_indexes['controls']
@@ -192,29 +222,31 @@ class Options:
 
                     # Check if current key is selected
                     if index == selected_vertical and selected_horizontal == i and not selected_key:
+                        selected_rect = pygame.Rect(key_x, key_y, key_rect_width, key_rect_height)
                         # Draw gray rectangle covering the selected key area
-                        if index == 0 and selected_horizontal == 1:
-                            pygame.draw.rect(self.display_surface, COLORS['gray'],
-                                             (key_x, key_y, key_rect_width, key_rect_height), 0, 0, 0, 12, 0)
-                        elif index == len(self.controls_options) - 1 and selected_horizontal == 1:
-                            pygame.draw.rect(self.display_surface, COLORS['gray'],
-                                             (key_x, key_y, key_rect_width, key_rect_height), 0, 0, 0, 0, 0, 12)
-                        else:
-                            pygame.draw.rect(self.display_surface, COLORS['gray'],
-                                             (key_x, key_y, key_rect_width, key_rect_height))
+                        pygame.draw.rect(self.display_surface, COLORS['dark'],
+                                         selected_rect, border_radius=12)
+                        pygame.draw.rect(self.display_surface, COLORS['light'],
+                                         selected_rect.inflate(-6, -6), border_radius=12)
                         # Render key text in light color
-                        key_text_color = COLORS['light']
+                        key_text_color = COLORS['dark']
                     else:
                         # Render key text in gray color
-                        key_text_color = COLORS['gray']
+                        key_text_color = COLORS['light']
 
                     # Render key text
                     if key_code:
                         key_text_surf = self.fonts['bold'].render(pygame.key.name(key_code), False, key_text_color)
+                        shadow_surf = self.fonts['bold'].render(pygame.key.name(key_code), True, shadow_color)
                     else:
                         key_text_surf = self.fonts['bold'].render('Empty', False, key_text_color)
+                        shadow_surf = self.fonts['bold'].render('Empty', True, shadow_color)
                     key_text_rect = key_text_surf.get_rect(
                         center=(key_x + key_rect_width / 2, key_y + key_rect_height / 2))
+
+                    shadow_rect = key_text_rect.move(*shadow_offset)
+                    self.display_surface.blit(shadow_surf, shadow_rect)
+
                     self.display_surface.blit(key_text_surf, key_text_rect)
                 else:
                     double_keys = config_manager.settings['controls'][key_name]
@@ -228,11 +260,17 @@ class Options:
 
                     # Render key text
                     if key_code:
-                        key_text_surf = self.fonts['bold'].render(pygame.key.name(key_code), False, COLORS['gray'])
+                        key_text_surf = self.fonts['bold'].render(pygame.key.name(key_code), False, COLORS['light'])
+                        shadow_surf = self.fonts['bold'].render(pygame.key.name(key_code), True, shadow_color)
                     else:
-                        key_text_surf = self.fonts['bold'].render('Empty', False, COLORS['gray'])
+                        key_text_surf = self.fonts['bold'].render('Empty', False, COLORS['light'])
+                        shadow_surf = self.fonts['bold'].render('Empty', True, shadow_color)
                     key_text_rect = key_text_surf.get_rect(
                         center=(key_x + key_rect_width / 2, key_y + key_rect_height / 2))
+
+                    shadow_rect = key_text_rect.move(*shadow_offset)
+                    self.display_surface.blit(shadow_surf, shadow_rect)
+
                     self.display_surface.blit(key_text_surf, key_text_rect)
 
         if selected_key:
@@ -243,24 +281,26 @@ class Options:
             new_key_bg_height = item_height
 
             # Draw keys_bg_rect with appropriate borders
-            if self.ui_indexes['controls'] == 0 and self.ui_indexes['controls2'] == 1:
-                pygame.draw.rect(self.display_surface, COLORS['gray'],
-                                 (new_key_bg_x, new_key_bg_y, new_key_bg_width, new_key_bg_height), 0, 0, 0, 12, 0)
-            elif self.ui_indexes['controls'] == len(self.controls_options) - 1 and self.ui_indexes['controls2'] == 1:
-                pygame.draw.rect(self.display_surface, COLORS['gray'],
-                                 (new_key_bg_x, new_key_bg_y, new_key_bg_width, new_key_bg_height), 0, 0, 0, 0, 0, 12)
-            else:
-                pygame.draw.rect(self.display_surface, COLORS['gray'],
-                                 (new_key_bg_x, new_key_bg_y, new_key_bg_width, new_key_bg_height))
+            selected_rect = pygame.Rect(new_key_bg_x, new_key_bg_y, new_key_bg_width, new_key_bg_height)
+            pygame.draw.rect(self.display_surface, COLORS['dark'],
+                             selected_rect, border_radius=12)
+            pygame.draw.rect(self.display_surface, COLORS['light'],
+                             selected_rect.inflate(-6, -6), border_radius=12)
 
             # x for new key
             x_pos = keys_bg_rect.width / 4 + self.ui_indexes['controls2'] * keys_bg_rect.width / 2
             y_pos = self.ui_indexes['controls'] * item_height + item_height / 2
             # new key
             new_key_text = pygame.key.name(new_key) if new_key else '[enter a \n\nnew key]'
-            new_key_text_surf = self.fonts['bold'].render(new_key_text, False, COLORS['light'])
+            new_key_text_surf = self.fonts['bold'].render(new_key_text, False, COLORS['dark'])
             new_key_text_rect = new_key_text_surf.get_rect(
                 center=keys_bg_rect.topleft + vector(x_pos, y_pos))
+
+            shadow_surf = self.fonts['bold'].render(pygame.key.name(new_key) if new_key else '[enter a \n\nnew key]',
+                                                    True, shadow_color)
+            shadow_rect = new_key_text_rect.move(*shadow_offset)
+            self.display_surface.blit(shadow_surf, shadow_rect)
+
             self.display_surface.blit(new_key_text_surf, new_key_text_rect)
 
     def draw_save_menu(self):
@@ -268,54 +308,62 @@ class Options:
                         config_manager.settings['video']['window_height'] * 0.8
         bg_rect = pygame.FRect(config_manager.settings['video']['window_width'] * 0.3,
                                config_manager.settings['video']['window_height'] * 0.1, width, height)
-        pygame.draw.rect(self.display_surface, COLORS['light'], bg_rect, 0, 12)
+        pygame.draw.rect(self.display_surface, COLORS['light-gray'], bg_rect, 0, 12)
 
         item_height = bg_rect.height / len(self.save_options)
 
         for index, value in enumerate(self.save_options):
             selected = index == self.ui_indexes['save']
             # text
-            text_surf = self.fonts['bold'].render(value, False, COLORS['light' if selected else 'dark'])
+            text_surf = self.fonts['bold'].render(value, False, COLORS['dark' if selected else 'light'])
             # rect
             text_rect = text_surf.get_frect(center=bg_rect.midtop + vector(0, item_height / 2 + index * item_height))
             text_bg_rect = pygame.FRect((0, 0), (width, item_height)).move_to(center=text_rect.center)
             # draw
-            if bg_rect.collidepoint(text_rect.center):
-                if selected:
-                    if text_bg_rect.collidepoint(bg_rect.topleft):
-                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect, 0, 0, 12, 12)
-                    elif text_bg_rect.collidepoint(bg_rect.midbottom + vector(0, -1)):
-                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect, 0, 0, 0, 0, 12, 12)
-                    else:
-                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect)
-                self.display_surface.blit(text_surf, text_rect)
+            if selected:
+                pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect, border_radius=12)
+                pygame.draw.rect(self.display_surface, COLORS['light'], text_bg_rect.inflate(-6, -6),
+                                 border_radius=12)
+
+            # Shadow effect
+            shadow_offset = (2, 2)
+            shadow_color = COLORS['black']
+            shadow_rect = text_rect.move(*shadow_offset)
+            shadow_surf = self.fonts['bold'].render(value, True, shadow_color)
+            self.display_surface.blit(shadow_surf, shadow_rect)
+
+            self.display_surface.blit(text_surf, text_rect)
 
     def draw_load_menu(self):
         width, height = config_manager.settings['video']['window_width'] * 0.4, \
                         config_manager.settings['video']['window_height'] * 0.8
         bg_rect = pygame.FRect(config_manager.settings['video']['window_width'] * 0.3,
                                config_manager.settings['video']['window_height'] * 0.1, width, height)
-        pygame.draw.rect(self.display_surface, COLORS['light'], bg_rect, 0, 12)
+        pygame.draw.rect(self.display_surface, COLORS['light-gray'], bg_rect, 0, 12)
 
         item_height = bg_rect.height / len(self.load_options)
 
         for index, value in enumerate(self.load_options):
             selected = index == self.ui_indexes['load']
             # text
-            text_surf = self.fonts['bold'].render(value, False, COLORS['light' if selected else 'dark'])
+            text_surf = self.fonts['bold'].render(value, False, COLORS['dark' if selected else 'light'])
             # rect
             text_rect = text_surf.get_frect(center=bg_rect.midtop + vector(0, item_height / 2 + index * item_height))
             text_bg_rect = pygame.FRect((0, 0), (width, item_height)).move_to(center=text_rect.center)
             # draw
-            if bg_rect.collidepoint(text_rect.center):
-                if selected:
-                    if text_bg_rect.collidepoint(bg_rect.topleft):
-                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect, 0, 0, 12, 12)
-                    elif text_bg_rect.collidepoint(bg_rect.midbottom + vector(0, -1)):
-                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect, 0, 0, 0, 0, 12, 12)
-                    else:
-                        pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect)
-                self.display_surface.blit(text_surf, text_rect)
+            if selected:
+                pygame.draw.rect(self.display_surface, COLORS['dark'], text_bg_rect, border_radius=12)
+                pygame.draw.rect(self.display_surface, COLORS['light'], text_bg_rect.inflate(-6, -6),
+                                 border_radius=12)
+
+            # Shadow effect
+            shadow_offset = (2, 2)
+            shadow_color = COLORS['black']
+            shadow_rect = text_rect.move(*shadow_offset)
+            shadow_surf = self.fonts['bold'].render(value, True, shadow_color)
+            self.display_surface.blit(shadow_surf, shadow_rect)
+
+            self.display_surface.blit(text_surf, text_rect)
 
     # input
     def input(self):
@@ -430,8 +478,8 @@ class Options:
                                 pygame.quit()
                                 exit()
                             else:
-                                self.funcs['open_main_menu']()
                                 self.funcs['close_game']()
+                                self.funcs['open_main_menu']()
                                 self.running = False
                         case _:
                             debug("Unhandled case in 'general' selection mode")
@@ -449,7 +497,9 @@ class Options:
                             self.selection_mode = 'resolution'
                         case 1:
                             if not pygame.display.is_fullscreen():
-                                set_window_size(1920, 1080)
+                                app = tk()
+                                width, height = app.winfo_screenwidth(), app.winfo_screenheight()
+                                set_window_size(width, height)
                                 config_manager.update_setting('video', 'fullscreen', True)
                                 pygame.display.toggle_fullscreen()
                                 self.adjust_surface()
@@ -477,7 +527,10 @@ class Options:
                             filename = f"sfslotqs{VERSION}.json"
                         else:
                             filename = f"sfslot{self.ui_indexes['load'] - 1}v{VERSION}.json"
-                        self.funcs['load'](filename)
+                        if filename:
+                            self.funcs['load'](filename)
+                        else:
+                            self.funcs['load'](filename)
                         self.running = False
                         self.selection_mode = 'general'
                         self.reset()
@@ -512,6 +565,8 @@ class Options:
                                                              config_manager.settings['video']['window_height']))
         if 'adjust_surfaces' in self.funcs:
             self.funcs['adjust_surfaces']()
+        if 'adjust_fonts' in self.funcs:
+            self.funcs['adjust_fonts']()
 
     def adjust_fonts(self):
         screen_width, _ = self.display_surface.get_size()
@@ -526,8 +581,10 @@ class Options:
 
     # run
     def run(self):
-
         self.running = True
+
+        self.adjust_surface()
+        self.adjust_fonts()
 
         while self.running:
             self.display_surface.fill(COLORS['black'])

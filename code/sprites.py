@@ -1,6 +1,7 @@
 import pygame.sprite
 
 from settings import *
+from config_manager import config_manager
 from random import uniform
 from support import draw_bar
 from timer import Timer
@@ -75,7 +76,6 @@ class MonsterSprite(pygame.sprite.Sprite):
         self.animation_speed = ANIMATION_SPEED + uniform(-1, 1)
         self.z = BATTLE_LAYERS['monster']
         self.hightlight = False
-        self.active = False
         self.target_sprite = None
         self.current_attack = None
         self.apply_attack = apply_attack
@@ -85,15 +85,16 @@ class MonsterSprite(pygame.sprite.Sprite):
 
         # sprite setup
         super().__init__(groups)
-        self.image = frames[self.state][self.frame_index]
+        for state, surface_list in self.frames.items():
+            new_surf_list = []
+            width = config_manager.settings['video']['window_width'] // 10
+            height = width
+            for surf in surface_list:
+                scaled_surf = pygame.transform.scale(surf, (width, height))
+                new_surf_list.append(scaled_surf)
+            self.frames[state] = new_surf_list
+        self.image = self.frames[self.state][self.frame_index]
         self.rect = self.image.get_frect(center=pos)
-
-        self.timers = {
-            'toggle_highlight': Timer(500, func=self.toggle_highlight),
-        }
-
-    def toggle_highlight(self):
-        self.hightlight = not self.hightlight
 
     def animate(self, dt):
         self.frame_index += ANIMATION_SPEED * dt
@@ -103,12 +104,12 @@ class MonsterSprite(pygame.sprite.Sprite):
                 self.current_attack))
             self.state = 'idle'
         self.frame_index %= len(self.frames[self.state])
-        self.image = self.frames[self.state][int(self.frame_index)]
-
         if self.hightlight:
             white_surf = pygame.mask.from_surface(self.image).to_surface()
-            white_surf.set_colorkey('black')
+            white_surf.set_alpha(0)
             self.image = white_surf
+        else:
+            self.image = self.frames[self.state][int(self.frame_index)]
 
     def activate_attack(self, target_sprite, attack):
         self.state = 'attack'
@@ -130,15 +131,8 @@ class MonsterSprite(pygame.sprite.Sprite):
         return f"{self.monster.name} at lvl: {self.monster.level}"
 
     def update(self, dt):
-        for timer in self.timers.values():
-            timer.update()
         self.animate(dt)
         self.monster.update()
-        if self.active:
-            if not self.timers['toggle_highlight'].active:
-                self.timers['toggle_highlight'].activate()
-        else:
-            self.hightlight = False
 
 
 class MonsterOutlineSprite(pygame.sprite.Sprite):
@@ -147,6 +141,14 @@ class MonsterOutlineSprite(pygame.sprite.Sprite):
         self.z = BATTLE_LAYERS['outline']
         self.monster_sprite = monster_sprite
         self.frames = frames
+        for state, surface_list in self.frames.items():
+            new_surf_list = []
+            width = config_manager.settings['video']['window_width'] // 10
+            height = width
+            for surf in surface_list:
+                scaled_surf = pygame.transform.scale(surf, (width, height))
+                new_surf_list.append(scaled_surf)
+            self.frames[state] = new_surf_list
 
         self.image = self.frames[self.monster_sprite.state][self.monster_sprite.frame_index]
         self.rect = self.image.get_frect(center=self.monster_sprite.rect.center)
@@ -165,12 +167,12 @@ class MonsterNameSprite(pygame.sprite.Sprite):
         self.z = BATTLE_LAYERS['name']
 
         text_surf = font.render(monster_sprite.monster.name, False, COLORS['black'])
-        padding = 10
+        padding = 5
 
-        self.image = pygame.Surface((text_surf.get_width() + 2 * padding, text_surf.get_height() + 2 * padding))
-        self.image.fill(COLORS['light'])
+        self.image = pygame.Surface((text_surf.get_width() + padding * 2, text_surf.get_height() + padding * 2),
+                                    pygame.SRCALPHA)
         self.image.blit(text_surf, (padding, padding))
-        self.rect = self.image.get_frect(midtop=pos)
+        self.rect = self.image.get_rect(midtop=pos)
 
     def update(self, _):
         if not self.monster_sprite.groups():
@@ -184,13 +186,13 @@ class MonsterLevelSprite(pygame.sprite.Sprite):
         self.font = font
         self.z = BATTLE_LAYERS['name']
 
-        self.image = pygame.Surface((60, 26))
+        self.image = pygame.Surface((60, 26), pygame.SRCALPHA)
         self.rect = self.image.get_frect(topleft=anchor) if entity == 'player' \
             else self.image.get_frect(topright=anchor)
         self.xp_rect = pygame.FRect(0, self.rect.height - 2, self.rect.width, 2)
 
     def update(self, _):
-        self.image.fill(COLORS['light'])
+        self.image.fill(pygame.Color(0, 0, 0, 0))
 
         text_surf = self.font.render(f'lvl: {self.monster_sprite.monster.level}', False, COLORS['black'])
         text_rect = text_surf.get_frect(center=(self.rect.width / 2, self.rect.height / 2))
@@ -202,7 +204,7 @@ class MonsterLevelSprite(pygame.sprite.Sprite):
             value=self.monster_sprite.monster.exp,
             max_value=self.monster_sprite.monster.level_up,
             color=COLORS['black'],
-            bg_color=COLORS['light'],
+            bg_color=pygame.Color(0, 0, 0, 0),
             radius=0
         )
 
@@ -217,11 +219,11 @@ class MonsterStatsSprite(pygame.sprite.Sprite):
         self.font = font
         self.z = BATTLE_LAYERS['overlay']
 
-        self.image = pygame.Surface(size)
+        self.image = pygame.Surface(size, pygame.SRCALPHA)
         self.rect = self.image.get_frect(midbottom=pos)
 
     def update(self, _):
-        self.image.fill(COLORS['light'])
+        self.image.fill(pygame.Color(0, 0, 0, 0))
 
         for index, (value, max_value) in enumerate(self.monster_sprite.monster.get_info()):
             color = (COLORS['red'], COLORS['blue'], COLORS['gray'])[index]

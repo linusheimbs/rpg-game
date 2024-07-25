@@ -1,4 +1,5 @@
 import pygame
+from os.path import join
 from settings import *
 from config_manager import config_manager
 from support import draw_bar
@@ -286,10 +287,29 @@ class MonsterInventory:
             element = game_data.attack_data[ability]['element']
             ability_text_surf = self.fonts['regular'].render(ability, False, COLORS['black'])
             x = abilities_rect.left + index % 2 * abilities_rect.width / 2
-            y = (abilities_rect.top + ability_text_rect.height * 2) + (index//2 * (ability_text_surf.get_height() * 6))
+            y = (abilities_rect.top + ability_text_rect.height * 2) + (index//2 * (ability_text_surf.get_height() * 5))
             ability_rect = ability_text_surf.get_frect(topleft=(x, y))
             pygame.draw.rect(self.display_surface, COLORS[element], ability_rect.inflate(10, 10), 0, 4)
             self.display_surface.blit(ability_text_surf, ability_rect)
+
+    def adjust_surfaces(self):
+        self.tint_surf = pygame.transform.scale(self.tint_surf, (config_manager.settings['video']['window_width'],
+                                                                 config_manager.settings['video']['window_height']))
+        self.main_rect = pygame.FRect(0, 0, config_manager.settings['video']['window_width'] * 0.7,
+                                      config_manager.settings['video']['window_height'] * 0.85) \
+            .move_to(center=(config_manager.settings['video']['window_width'] / 2,
+                             config_manager.settings['video']['window_height'] / 2))
+
+    def adjust_fonts(self):
+        screen_width, _ = self.display_surface.get_size()
+        font_size_ratio = 0.015
+        font_size = int(screen_width * font_size_ratio)
+        self.fonts = {
+            'dialogue': pygame.font.Font(join('..', 'graphics', 'fonts', 'PixeloidSans.ttf'), font_size),
+            'regular': pygame.font.Font(join('..', 'graphics', 'fonts', 'PixeloidSans.ttf'), font_size),
+            'small': pygame.font.Font(join('..', 'graphics', 'fonts', 'PixeloidSans.ttf'), int(font_size * 0.6)),
+            'bold': pygame.font.Font(join('..', 'graphics', 'fonts', 'dogicapixelbold.otf'), font_size)
+        }
 
     # update
     def update(self, dt):

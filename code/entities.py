@@ -193,7 +193,7 @@ class Characters(Entity):
 
     def raycast(self):
         if check_connection(self.radius, self, self.player) and self.has_los() and not self.has_moved\
-                and not self.has_noticed:
+                and not self.has_noticed and not self.character_data['defeated']:
             self.player.block()
             self.player.change_facing_direction(self.rect.center)
             self.timers['notice'].activate()

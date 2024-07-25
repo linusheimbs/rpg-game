@@ -26,9 +26,7 @@ class MainMenu:
     def load_game(self, filename=None):
         self.open = not self.open
         if not self.open:
-            self.game = Game(self.load_game)
-            if filename:
-                self.game.load_game(filename)
+            self.game = Game(self.load_game, filename)
 
     def run(self):
         while True:

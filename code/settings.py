@@ -10,6 +10,7 @@ BATTLE_OUTLINE_WIDTH = 4
 COLORS = {
     'white': '#f4fefa',
     'pure white': '#ffffff',
+    'dark white': '#f0f0f0',
     'dark': '#2b292c',
     'light': '#c8c8c8',
     'gray': '#3a373b',
@@ -18,11 +19,10 @@ COLORS = {
     'black': '#000000',
     'red': '#f03131',
     'blue': '#66d7ee',
+    'normal': '#ffffff',
     'fire': '#c3362b',
     'water': '#50b0d8',
     'plant': '#4caf50',
-    'normal': '#ffffff',
-    'dark white': '#f0f0f0'
 }
 
 WORLD_LAYERS = {
@@ -35,8 +35,8 @@ WORLD_LAYERS = {
 
 BATTLE_LAYERS = {
     'outline': 0,
-    'name': 1,
-    'monster': 2,
+    'monster': 1,
+    'name': 2,
     'effects': 3,
     'overlay': 4
 }

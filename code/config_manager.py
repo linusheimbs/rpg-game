@@ -1,21 +1,25 @@
 import pygame
 
+from tkinter import Tk as tk
 from settings import *
 import json
+import os
 from debug import debug
 
 
 class ConfigManager:
     def __init__(self, filepath='../save_data/settings.json'):
         self.filepath = filepath
+        app = tk()
+        width, height = app.winfo_screenwidth(), app.winfo_screenheight()
         self.settings = {
             'video': {
-                'window_width': 1600, 'window_height': 900,
-                'fullscreen': False
+                'window_width': width, 'window_height': height,
+                'fullscreen': True
             },
             'audio': {
-                'music': 0.0,
-                'sfx': 0.2
+                'music': 0.,
+                'sfx': 0.
             },
             'controls': {
                 'up': [pygame.K_w, 0],
@@ -28,6 +32,11 @@ class ConfigManager:
             'show_hitbox': False
         }
         # self.load_settings()
+        self.ensure_directory_exists()
+
+    def ensure_directory_exists(self):
+        if not os.path.exists(self.filepath):
+            os.makedirs(self.filepath)
 
     def load_settings(self):
         try:

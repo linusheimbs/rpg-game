@@ -10,7 +10,8 @@
 - [Contact](#contact)
 
 ## Introduction
-This project is an RPG game made in Python, inspired by classic titles like Pokémon and older Final Fantasy games. It features retro-style gameplay with turn-based combat and an engaging storyline.
+This project is an RPG game made in Python, inspired by classic titles like Pokémon and older Final Fantasy games.
+It features retro-style gameplay with turn-based combat and an engaging storyline.
 
 Inspired by a tutorial video by [ClearCode](https://www.youtube.com/watch?v=fo4e3njyGy0).
 
@@ -74,6 +75,7 @@ Inspired by a tutorial video by [ClearCode](https://www.youtube.com/watch?v=fo4e
 - [x] Remove recovery mechanism
 - [x] Add power to monsters' abilities
 - [ ] Apply power scaling to abilities
+- [ ] Overhaul level up and introduce level up stat selection
 
 ### Character:
 - [ ] Implement pathfinding for the player
@@ -86,7 +88,7 @@ Inspired by a tutorial video by [ClearCode](https://www.youtube.com/watch?v=fo4e
 - [ ] Overhaul catch system
 - [x] Completely redesign battle system without a timer, using speed checks
 - [x] Implement action queue and execution system
-- [ ] Allow monsters to take actions based on available energy
+- [x] Allow monsters to take actions based on available energy
 - [x] Improve visual cues for turn indication (might need future changes)
 
 ### Sound:
@@ -96,16 +98,18 @@ Inspired by a tutorial video by [ClearCode](https://www.youtube.com/watch?v=fo4e
 - [x] Optimize sprite rendering based on player proximity to reduce lag
 - [x] Create main menu with full functionality and UI
 - [x] Design options menu with UI elements
-- [ ] Implement save and load functionality and UI
-- [ ] Introduce new items to the game
+- [x] Implement save and load functionality and UI
+- [ ] Introduce items to the game
 - [ ] Change debug output to a console-style output system
 
 ### Bugfixes:
 - [x] Fix issue where player actions can cause crashes during action execution
 - [x] Resolve bug causing outlines to appear incorrectly during actions
 - [x] Address player ability to attack out of sequence by spamming space
-- [ ] Investigate intermittent battle stoppages
-- [ ] Fix initial player position when movement keys are pressed before loading completes
+- [X] Investigate intermittent battle stoppages (in battle.py: self.action_index seems to be the problem)
+- [X] Fix initial player position when movement keys are pressed before loading completes
+- [X] Loading from main menu doesn't function as intended
+- [ ] Characters change defeated status when loading a game and(/or)? transitioning between maps
 
 ## Contact
 Coming.

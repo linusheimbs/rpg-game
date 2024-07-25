@@ -269,82 +269,82 @@ class GameData:
 
         self.monster_data = {
             'Plumette': {
-                'stats': {'element': 'plant', 'max_health': 15, 'max_energy': 1,
+                'stats': {'element': 'plant', 'max_health': 10, 'max_energy': 1,
                           'attack': 4, 'power': 4, 'defense': 8, 'speed': 1},
-                'abilities': {0: 'scratch', 5: 'spark'},
+                'abilities': {0: 'scratch', 5: 'battlecry'},
                 'evolve': ('Ivieron', 15)},
             'Ivieron': {
-                'stats': {'element': 'plant', 'max_health': 18, 'max_energy': 1,
+                'stats': {'element': 'plant', 'max_health': 10, 'max_energy': 1,
                           'attack': 5, 'power': 4, 'defense': 10, 'speed': 1.2},
                 'abilities': {0: 'scratch', 5: 'spark'},
-                'evolve': ('Pluma', 32)},
+                'evolve': ('Pluma', 30)},
             'Pluma': {
-                'stats': {'element': 'plant', 'max_health': 23, 'max_energy': 1,
+                'stats': {'element': 'plant', 'max_health': 10, 'max_energy': 1,
                           'attack': 6, 'power': 4, 'defense': 12, 'speed': 1.8},
                 'abilities': {0: 'scratch', 5: 'spark'},
                 'evolve': None},
             'Sparchu': {
-                'stats': {'element': 'fire', 'max_health': 15, 'max_energy': 1,
+                'stats': {'element': 'fire', 'max_health': 10, 'max_energy': 1,
                           'attack': 3, 'power': 4, 'defense': 8, 'speed': 1},
                 'abilities': {0: 'scratch', 5: 'spark'},
                 'evolve': ('Cindrill', 15)},
             'Cindrill': {
-                'stats': {'element': 'fire', 'max_health': 18, 'max_energy': 1,
+                'stats': {'element': 'fire', 'max_health': 10, 'max_energy': 1,
                           'attack': 4, 'power': 4, 'defense': 10, 'speed': 1.2},
                 'abilities': {0: 'scratch', 5: 'spark'},
-                'evolve': ('Charmadillo', 33)},
+                'evolve': ('Charmadillo', 30)},
             'Charmadillo': {
-                'stats': {'element': 'fire', 'max_health': 27, 'max_energy': 1,
+                'stats': {'element': 'fire', 'max_health': 10, 'max_energy': 1,
                           'attack': 6, 'power': 4, 'defense': 17, 'speed': 1.5},
                 'abilities': {0: 'scratch', 5: 'fire', 10: 'explosion', 12: 'battlecry', 20: 'annihilate'},
                 'evolve': None},
             'Finsta': {
-                'stats': {'element': 'water', 'max_health': 13, 'max_energy': 1,
+                'stats': {'element': 'water', 'max_health': 10, 'max_energy': 1,
                           'attack': 2, 'power': 4, 'defense': 8, 'speed': 1.8},
                 'abilities': {0: 'scratch', 5: 'spark'},
-                'evolve': ('Gulfin', 34)},
+                'evolve': ('Gulfin', 15)},
             'Gulfin': {
-                'stats': {'element': 'water', 'max_health': 18, 'max_energy': 1,
+                'stats': {'element': 'water', 'max_health': 10, 'max_energy': 1,
                           'attack': 3, 'power': 4, 'defense': 10, 'speed': 2},
                 'abilities': {0: 'scratch', 5: 'spark'},
-                'evolve': ('Finiette', 32)},
+                'evolve': ('Finiette', 30)},
             'Finiette': {
-                'stats': {'element': 'water', 'max_health': 27, 'max_energy': 1,
+                'stats': {'element': 'water', 'max_health': 10, 'max_energy': 1,
                           'attack': 4, 'power': 4, 'defense': 17, 'speed': 2.5},
                 'abilities': {0: 'scratch', 5: 'spark'},
                 'evolve': None},
             'Atrox': {
-                'stats': {'element': 'normal', 'max_health': 18, 'max_energy': 1,
+                'stats': {'element': 'normal', 'max_health': 10, 'max_energy': 1,
                           'attack': 3, 'power': 4, 'defense': 10, 'speed': 1.9},
                 'abilities': {0: 'scratch', 5: 'spark'},
                 'evolve': None},
             'Pouch': {
-                'stats': {'element': 'plant', 'max_health': 23, 'max_energy': 1,
+                'stats': {'element': 'plant', 'max_health': 10, 'max_energy': 1,
                           'attack': 4, 'power': 4, 'defense': 12, 'speed': 1.5},
                 'abilities': {0: 'scratch', 5: 'spark'},
                 'evolve': None},
             'Draem': {
-                'stats': {'element': 'plant', 'max_health': 23, 'max_energy': 1,
+                'stats': {'element': 'plant', 'max_health': 10, 'max_energy': 1,
                           'attack': 4, 'power': 4, 'defense': 12, 'speed': 1.4},
                 'abilities': {0: 'scratch', 5: 'spark'},
                 'evolve': None},
             'Larvea': {
-                'stats': {'element': 'plant', 'max_health': 15, 'max_energy': 1,
+                'stats': {'element': 'plant', 'max_health': 10, 'max_energy': 1,
                           'attack': 1, 'power': 4, 'defense': 8, 'speed': 1},
                 'abilities': {0: 'scratch', 5: 'spark'},
-                'evolve': ('Cleaf', 8)},
+                'evolve': ('Cleaf', 12)},
             'Cleaf': {
-                'stats': {'element': 'plant', 'max_health': 18, 'max_energy': 1,
+                'stats': {'element': 'plant', 'max_health': 10, 'max_energy': 1,
                           'attack': 3, 'power': 4, 'defense': 10, 'speed': 1.6},
                 'abilities': {0: 'scratch', 5: 'spark'},
                 'evolve': None},
             'Jacana': {
-                'stats': {'element': 'fire', 'max_health': 12, 'max_energy': 1,
+                'stats': {'element': 'fire', 'max_health': 10, 'max_energy': 1,
                           'attack': 3, 'power': 4, 'defense': 10, 'speed': 2.6},
                 'abilities': {0: 'scratch', 5: 'spark'},
                 'evolve': None},
             'Friolera': {
-                'stats': {'element': 'water', 'max_health': 27, 'max_energy': 1,
+                'stats': {'element': 'water', 'max_health': 10, 'max_energy': 1,
                           'attack': 4, 'power': 4, 'defense': 17, 'speed': 2},
                 'abilities': {0: 'scratch', 5: 'spark', 15: 'splash', 20: 'ice', 25: 'heal'},
                 'evolve': None},
@@ -358,7 +358,7 @@ class GameData:
                 {'side': 'player', 'targets': 1, 'amount': -1.2, 'cost': 1,
                  'element': 'plant', 'animation': 'green'},
             'battlecry':
-                {'side': 'player', 'targets': 'all',  'amount': 1.4, 'cost': 1,
+                {'side': 'player', 'targets': 'all',  'amount': -1.4, 'cost': 1,
                  'element': 'normal', 'animation': 'green'},
             'spark':
                 {'side': 'opponent', 'targets': 1,  'amount': 1.1, 'cost': 1,

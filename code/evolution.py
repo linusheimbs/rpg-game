@@ -1,5 +1,6 @@
 from settings import *
 from timer import Timer
+from config_manager import config_manager
 
 
 class Evolution:
@@ -35,7 +36,8 @@ class Evolution:
         if self.frame_index < len(self.star_frames) - 1:
             self.frame_index += self.animation_speed * dt
             frame = self.star_frames[int(self.frame_index)]
-            rect = frame.get_frect(center=(WINDOW_WIDTH/2, WINDOW_HEIGHT/2))
+            rect = frame.get_frect(center=(config_manager.settings['video']['window_width']/2,
+                                           config_manager.settings['video']['window_height']/2))
             self.display_surface.blit(frame, rect)
 
     def update(self, dt):
@@ -45,22 +47,26 @@ class Evolution:
         if not self.timers['start'].active:
             self.display_surface.blit(self.tint_surf, (0, 0))
             if self.tint_amount < 255:
-                rect = self.start_monster_surf.get_frect(center=(WINDOW_WIDTH/2, WINDOW_HEIGHT/2))
+                rect = self.start_monster_surf.get_frect(center=(config_manager.settings['video']['window_width']/2,
+                                                                 config_manager.settings['video']['window_height']/2))
                 self.display_surface.blit(self.start_monster_surf, rect)
 
                 self.tint_amount += self.tint_speed * dt
                 self.start_monster_surf_white.set_alpha(self.tint_amount)
                 self.display_surface.blit(self.start_monster_surf_white, rect)
 
-                text_rect = self.start_text_surf.get_frect(center=rect.center + vector(0, WINDOW_HEIGHT/4))
+                text_rect = self.start_text_surf.get_frect(center=rect.center + vector(
+                    0, config_manager.settings['video']['window_height']/4))
                 pygame.draw.rect(self.display_surface, COLORS['light'], text_rect.inflate(20, 20), 0, 5)
                 self.display_surface.blit(self.start_text_surf, text_rect)
 
             else:
-                rect = self.end_monster_surf.get_frect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
+                rect = self.end_monster_surf.get_frect(center=(config_manager.settings['video']['window_width'] / 2,
+                                                               config_manager.settings['video']['window_height'] / 2))
                 self.display_surface.blit(self.end_monster_surf, rect)
 
-                text_rect = self.end_text_surf.get_frect(center=rect.center + vector(0, WINDOW_HEIGHT / 4))
+                text_rect = self.end_text_surf.get_frect(center=rect.center + vector(
+                    0, config_manager.settings['video']['window_height'] / 4))
                 pygame.draw.rect(self.display_surface, COLORS['light'], text_rect.inflate(20, 20), 0, 5)
                 self.display_surface.blit(self.end_text_surf, text_rect)
 

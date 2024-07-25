@@ -1,29 +1,29 @@
 {
     "video": {
-        "window_width": 1600,
-        "window_height": 900,
-        "fullscreen": false
+        "window_width": 1920,
+        "window_height": 1080,
+        "fullscreen": true
     },
     "audio": {
         "music": 0.0,
-        "sfx": 0.2
+        "sfx": 0.0
     },
     "controls": {
         "up": [
             119,
-            117
+            0
         ],
         "down": [
             115,
-            106
+            0
         ],
         "left": [
             97,
-            104
+            0
         ],
         "right": [
             100,
-            107
+            0
         ],
         "confirm": [
             102,
