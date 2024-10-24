@@ -25,7 +25,7 @@ Inspired by a tutorial video by [ClearCode](https://www.youtube.com/watch?v=fo4e
 ## Installation
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/umbra998/rpg-game.git
+    git clone https://github.com/linusheimbs/rpg-game.git
     ```
 2. **Navigate to the project directory**:
     ```bash
